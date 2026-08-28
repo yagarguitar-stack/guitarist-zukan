@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>ギタリスト図鑑 | SingingBirds</title>
+<style>
+:root{
+  --bg:#17140f;
+  --bg2:#221d15;
+  --paper:#f3ead8;
+  --paper2:#e9dec6;
+  --ink:#28211a;
+  --ink2:#6b5d4a;
+  --line:#cdbfa4;
+  --gold:#c9a227;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.012) 0 2px, transparent 2px 4px),
+    radial-gradient(120% 80% at 50% 0%, #262016 0%, var(--bg) 60%);
+  color:var(--paper);
+  min-height:100vh;
+  padding-bottom:40px;
+}
+.serif{font-family:"Hiragino Mincho ProN","Yu Mincho","Times New Roman",serif}
+
+/* ---------- header ---------- */
+header{
+  text-align:center;
+  padding:26px 16px 10px;
+}
+.hd-eyebrow{
+  font-size:10px;letter-spacing:.35em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:6px;
+}
+h1{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:30px;font-weight:600;letter-spacing:.14em;
+}
+.hd-sub{font-size:11px;color:#a8977c;letter-spacing:.18em;margin-top:6px}
+
+/* ---------- tabs ---------- */
+nav{
+  display:flex;justify-content:center;gap:8px;
+  padding:14px 16px 4px;position:sticky;top:0;z-index:20;
+  background:linear-gradient(to bottom, rgba(23,20,15,.96) 70%, rgba(23,20,15,0));
+}
+.tab{
+  border:1px solid #4a4232;background:transparent;color:#cbbc9e;
+  font-size:13px;letter-spacing:.12em;padding:8px 18px;border-radius:999px;
+  cursor:pointer;font-family:inherit;
+}
+.tab.on{background:var(--gold);border-color:var(--gold);color:#1c1710;font-weight:700}
+
+/* ---------- filters ---------- */
+.filters{max-width:640px;margin:10px auto 0;padding:0 16px}
+.f-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;align-items:center}
+.f-label{font-size:10px;letter-spacing:.2em;color:#8f8168;width:100%;margin-bottom:2px}
+.chip{
+  border:1px solid #453b2b;background:#211c14;color:#d8caac;
+  font-size:12px;padding:5px 12px;border-radius:999px;cursor:pointer;font-family:inherit;
+}
+.chip.on{background:var(--paper);color:var(--ink);border-color:var(--paper);font-weight:700}
+
+/* ---------- card grid ---------- */
+.grid{
+  max-width:640px;margin:14px auto 0;padding:0 16px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
+}
+@media(min-width:520px){.grid{grid-template-columns:repeat(3,1fr)}}
+.card{
+  background:var(--paper);border-radius:var(--radius);overflow:hidden;
+  color:var(--ink);cursor:pointer;border:0;text-align:left;font-family:inherit;
+  box-shadow:0 4px 14px rgba(0,0,0,.45);
+  transition:transform .12s ease;
+  position:relative;
+}
+.card:active{transform:scale(.97)}
+.card .fig{display:block;width:100%;background:var(--paper2)}
+.card .meta{padding:9px 10px 11px;border-top:2px solid var(--ac,#888)}
+.card .nm{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:15px;font-weight:700;letter-spacing:.04em}
+.card .en{font-size:9px;letter-spacing:.14em;color:var(--ink2);text-transform:uppercase;margin-top:1px}
+.card .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.tg{
+  font-size:9px;padding:2px 7px;border-radius:999px;
+  background:rgba(0,0,0,.06);color:var(--ink2);letter-spacing:.05em;
+}
+.tg.ac{background:var(--ac);color:#fff}
+.fav-mark{
+  position:absolute;top:6px;right:8px;font-size:15px;color:var(--gold);
+  text-shadow:0 1px 2px rgba(0,0,0,.3);
+}
+.empty{
+  grid-column:1/-1;text-align:center;color:#8f8168;font-size:13px;
+  padding:40px 0;letter-spacing:.1em;
+}
+
+/* ---------- detail ---------- */
+.detail{max-width:640px;margin:12px auto 0;padding:0 16px}
+.back{
+  background:none;border:none;color:#cbbc9e;font-size:13px;cursor:pointer;
+  padding:6px 0 12px;letter-spacing:.1em;font-family:inherit;
+}
+.sheet{
+  background:var(--paper);color:var(--ink);border-radius:var(--radius);
+  overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.5);
+}
+.hero{position:relative;background:var(--paper2)}
+.hero svg{display:block;width:100%}
+.hero .years{
+  position:absolute;top:12px;left:14px;font-size:11px;letter-spacing:.2em;
+  color:var(--ink2);
+}
+.fav-btn{
+  position:absolute;top:8px;right:10px;background:none;border:none;
+  font-size:24px;cursor:pointer;color:#b6a888;padding:4px;
+}
+.fav-btn.on{color:var(--gold)}
+.d-head{padding:14px 18px 6px;border-top:3px solid var(--ac)}
+.d-nm{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:24px;font-weight:700;letter-spacing:.05em}
+.d-en{font-size:10px;letter-spacing:.22em;color:var(--ink2);text-transform:uppercase;margin-top:2px}
+.d-catch{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:14px;color:var(--ac);margin-top:8px;letter-spacing:.06em;
+}
+.d-tags{display:flex;flex-wrap:wrap;gap:5px;padding:8px 18px 0}
+.d-body{padding:6px 18px 20px}
+.sec{margin-top:18px}
+.sec-t{
+  font-size:11px;letter-spacing:.28em;color:var(--ac);font-weight:700;
+  display:flex;align-items:center;gap:8px;margin-bottom:8px;
+}
+.sec-t::after{content:"";flex:1;height:1px;background:var(--line)}
+.d-prof{font-size:13.5px;line-height:1.85;color:#3a3227}
+.dna-tags{display:flex;flex-wrap:wrap;gap:7px}
+.dna-tg{
+  font-size:12.5px;padding:6px 13px;border-radius:999px;
+  border:1.6px solid;background:#fff;letter-spacing:.03em;font-weight:600;
+}
+.gear{font-size:13px;line-height:1.8;color:#3a3227}
+.gear b{color:var(--ink)}
+.song{
+  display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);
+  font-size:13px;align-items:baseline;
+}
+.song:last-child{border-bottom:none}
+.song .no{
+  font-family:"Hiragino Mincho ProN",serif;color:var(--ac);
+  font-size:15px;font-weight:700;flex:0 0 18px;
+}
+.song .st{font-weight:700}
+.song .sn{color:var(--ink2);font-size:12px;margin-top:2px}
+.song>div{flex:1}
+.beg{
+  background:rgba(0,0,0,.05);border-left:3px solid var(--ac);
+  padding:10px 12px;font-size:13px;line-height:1.7;border-radius:0 8px 8px 0;
+}
+.beg b{display:block}
+.sim-row{display:flex;flex-wrap:wrap;gap:8px}
+.sim{
+  border:1px solid var(--line);background:#fff;color:var(--ink);
+  font-size:12px;padding:6px 12px;border-radius:999px;cursor:pointer;font-family:inherit;
+}
+.sim b{font-weight:700}
+.infl{font-size:12.5px;line-height:1.8;color:#3a3227}
+.infl b{color:var(--ac)}
+
+/* ---------- tree ---------- */
+.treewrap{max-width:640px;margin:14px auto 0;padding:0 16px}
+.tree-note{font-size:12px;color:#a8977c;line-height:1.7;margin-bottom:10px}
+.tree-card{
+  background:var(--paper);border-radius:var(--radius);padding:8px;
+  box-shadow:0 6px 20px rgba(0,0,0,.5);overflow-x:auto;
+}
+.tree-card svg{display:block;min-width:1240px;width:100%}
+
+/* ---------- help ---------- */
+.help{max-width:640px;margin:14px auto 0;padding:0 16px}
+.h-card{
+  background:var(--paper);color:var(--ink);border-radius:var(--radius);
+  padding:18px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.4);
+}
+.h-card h2{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:16px;letter-spacing:.1em;margin-bottom:10px;color:var(--ink);
+  border-bottom:2px solid var(--gold);display:inline-block;padding-bottom:2px;
+}
+.h-card p,.h-card li{font-size:13px;line-height:1.9;color:#3a3227}
+.h-card ul{padding-left:18px;margin-top:4px}
+.h-card b{color:var(--ink)}
+.search-row{gap:8px}
+#search{
+  flex:1;min-width:150px;background:#211c14;border:1px solid #453b2b;color:#e8dcc0;
+  font-size:14px;padding:8px 14px;border-radius:999px;font-family:inherit;outline:none;
+}
+#search::placeholder{color:#7d7159}
+#search:focus{border-color:var(--gold)}
+.disc{
+  border:1px solid var(--gold);background:transparent;color:var(--gold);
+  font-size:12px;padding:7px 12px;border-radius:999px;cursor:pointer;font-family:inherit;white-space:nowrap;
+}
+.rc{
+  border:1px solid #453b2b;background:#2a2318;color:#d8caac;
+  font-size:11.5px;padding:4px 10px;border-radius:999px;cursor:pointer;font-family:inherit;
+}
+.card .hito{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+  font-size:11px;color:var(--ac);margin-top:3px;letter-spacing:.04em;
+}
+.dna-tg.tap{cursor:pointer;border-bottom:2px dotted currentColor}
+.stars{color:var(--ac);letter-spacing:2px;font-size:13px}
+.stars .off{color:#cdbfa4}
+.listen{
+  border:1px solid var(--ac);background:#fff;color:var(--ac);
+  font-size:11px;padding:3px 10px;border-radius:999px;cursor:pointer;font-family:inherit;
+  text-decoration:none;display:inline-block;white-space:nowrap;
+}
+.sim-item{display:flex;align-items:center;gap:8px;padding:6px 0;flex-wrap:wrap}
+.sim-why{font-size:11px;color:var(--ink2)}
+.sim-pct{font-weight:700;color:var(--ac);font-size:13px}
+#tech-modal{
+  position:fixed;inset:0;background:rgba(15,12,8,.6);z-index:50;display:none;
+  align-items:center;justify-content:center;padding:20px;
+}
+#tech-modal.on{display:flex}
+.tm-card{
+  background:var(--paper);color:var(--ink);border-radius:var(--radius);
+  max-width:420px;width:100%;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.6);
+  max-height:80vh;overflow-y:auto;
+}
+.tm-card h3{
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:18px;
+  border-bottom:2px solid var(--gold);display:inline-block;padding-bottom:2px;margin-bottom:10px;
+}
+.tm-sec{margin-top:10px}
+.tm-sec b{font-size:11px;letter-spacing:.2em;color:#8a7a5f;display:block;margin-bottom:3px}
+.tm-sec p{font-size:13px;line-height:1.8}
+.tm-close{
+  margin-top:14px;width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);
+  padding:9px;border-radius:999px;cursor:pointer;font-family:inherit;font-size:13px;
+}
+.view{display:none}
+.view.on{display:block}
+footer{
+  text-align:center;margin-top:36px;font-size:10px;color:#6e6250;letter-spacing:.2em;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd-eyebrow">SingingBirds Guitar School</div>
+  <h1>ギタリスト図鑑</h1>
+  <div class="hd-sub">聴いて、知って、真似てみる。</div>
+</header>
+
+<nav>
+  <button class="tab on" data-v="list">図鑑</button>
+  <button class="tab" data-v="tree">系譜</button>
+  <button class="tab" data-v="help">使い方</button>
+</nav>
+
+<div id="v-list" class="view on">
+  <div class="filters">
+    <div class="f-row search-row">
+      <input id="search" type="search" placeholder="名前・曲名・奏法・ギターで検索" autocomplete="off">
+      <button class="disc" id="btn-today">今日の一人</button>
+      <button class="disc" id="btn-random">ランダム</button>
+    </div>
+    <div class="f-row" id="recent-row" style="display:none"><span class="f-label">最近見た</span><span id="f-recent"></span></div>
+    <div class="f-row"><span class="f-label">ERA — 年代</span><span id="f-era"></span></div>
+    <div class="f-row"><span class="f-label">GENRE — ジャンル</span><span id="f-genre"></span></div>
+    <div class="f-row"><span class="f-label">PLAY — 奏法</span><span id="f-tech"></span></div>
+  </div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<div id="v-detail" class="view"><div class="detail" id="detail"></div></div>
+
+<div id="v-tree" class="view">
+  <div class="treewrap">
+    <p class="tree-note">ブルースの巨人たちから現代へ——影響の流れをたどる系譜図でございます。枠のある人物をタップすると詳細ページへ移動します(横スクロール可)。<br>※ 線は本人の発言や広く知られる音楽的系譜をもとにした「代表的な影響関係の一例」であり、すべての影響を網羅するものではございません。</p>
+    <div class="tree-card" id="tree"></div>
+  </div>
+</div>
+
+<div id="v-help" class="view"><div class="help" id="help"></div></div>
+
+<div id="tech-modal" role="dialog" aria-modal="true">
+  <div class="tm-card">
+    <h3 id="tm-title"></h3>
+    <div class="tm-sec"><b>どんな奏法?</b><p id="tm-what"></p></div>
+    <div class="tm-sec"><b>練習するなら</b><p id="tm-practice"></p></div>
+    <div class="tm-sec"><b>聴くときの注目点</b><p id="tm-listen"></p></div>
+    <button class="tm-close" id="tm-close">閉じる</button>
+  </div>
+</div>
+
+<footer>GUITARIST ZUKAN v1.0 — SingingBirds</footer>
+
+<script>
+/* ============ DATA ============ */
+/* 【イラストの割り当て方法】
+   HTMLと同じ場所に images フォルダを作り、人物IDと同名の画像を置くだけで自動的に使われます。
+     例: images/clapton.webp (なければ images/clapton.png も試します)
+   画像が無い人物は内蔵のシルエットが表示されます。推奨サイズは縦横比4:5(例:480×600px)。
+   ※ 個別に img:"..." を指定した場合はそちらが最優先(base64埋め込みも可)。人物IDは各データの id: の値。 */
+const G = [
+{
+ id:"clapton", nm:"エリック・クラプトン", en:"Eric Clapton",
+ years:"1945–", country:"英", era:["60s","70s"], genre:["Blues","Rock"],
+ ac:"#4a6fa5",
+ catch:"「スローハンド」— 歌うように泣くブルースの王道。",
+ hito:"歌うペンタの王道", tech:["チョーキング","ビブラート","リフ"], lv:2,
+ prof:"ヤードバーズ、クリームを経てソロへ。黒人ブルースへの深い敬愛を土台に、ロックの文脈でブルースギターの美しさを世界に広めた代表的存在。派手さよりも一音の説得力で聴かせる、ペンタトニックの教科書のような存在でございます。",
+ dnaTags:["ペンタトニックの王道","泣きのチョーキング","ウーマントーン","歌に寄り添うオブリガード"],
+ gear:{g:"Fender Stratocaster「Blackie」/ Gibson Les Paul・SG(クリーム期)",a:"Marshall(クリーム期)→ Fender系クリーントーン",s:"ミッド豊かな甘いトーン。クリーム期はウーマントーンと呼ばれる蜜のような歪みが有名。"},
+ songs:[
+  {t:"Crossroads (Cream)",n:"ロバート・ジョンソンのカバー。ライブソロはロック史の金字塔"},
+  {t:"Layla",n:"デレク&ザ・ドミノス。哀切のリフが名高い(スライドはデュアン・オールマンとの共演)"},
+  {t:"Tears in Heaven",n:"アコースティックの名曲。指弾きの教材としても定番"}
+ ],
+ beg:{t:"Wonderful Tonight",n:"ゆったりしたテンポで、チョーキングの音程感とビブラートを学ぶのに最適の一曲でございます。"},
+ sim:["bbking","srv","gilmour","beck"],
+ inflFrom:"ロバート・ジョンソン、B.B.キング、バディ・ガイ、フレディ・キング",
+ inflTo:"エディ・ヴァン・ヘイレン、Char、後のブルースロック全般"
+},
+{
+ id:"hendrix", nm:"ジミ・ヘンドリックス", en:"Jimi Hendrix",
+ years:"1942–1970", country:"米", era:["60s"], genre:["Rock","Blues"],
+ ac:"#8a4fd3",
+ catch:"エレキギターの可能性を一人で書き換えた革命家。",
+ hito:"自由の源流", tech:["チョーキング","カッティング","リフ","ファンク"], lv:2,
+ prof:"わずか4年ほどの活動でエレクトリックギターの表現を大きく塗り替えた天才。コードとリードを同時に紡ぐ親指を使ったコードワーク、フィードバックやアーミングまで音楽にした自由さは、今なお多くのギタリストにとっての源流とされております。",
+ dnaTags:["親指フレットのコードワーク","ダブルストップ","フィードバック&アーム","リズムとリードの融合"],
+ gear:{g:"Fender Stratocaster(右利き用を逆さに構えて使用)",a:"Marshall大音量",s:"Fuzz Face、Uni-Vibe、ワウを駆使したサイケデリックで肉感的なサウンド。"},
+ songs:[
+  {t:"Purple Haze",n:"ジミヘンコード(7#9)の代名詞。リフの強烈さは今も色褪せず"},
+  {t:"Little Wing",n:"コードとメロディを同時に奏でる美しいイントロは、多くのギタリストが挑む課題曲"},
+  {t:"Voodoo Child (Slight Return)",n:"ワウとペンタの応酬。エレキの快感が詰まった一曲"}
+ ],
+ beg:{t:"Hey Joe",n:"コード進行がシンプルで、コードにオブリガードを絡める第一歩として最適でございます。"},
+ sim:["srv","char","frusciante"],
+ inflFrom:"マディ・ウォーターズ、B.B.キング、カーティス・メイフィールド",
+ inflTo:"スティーヴィー・レイ・ヴォーン、Char、フルシアンテはじめ、後のロックギタリスト全般に広く影響"
+},
+{
+ id:"srv", nm:"スティーヴィー・レイ・ヴォーン", en:"Stevie Ray Vaughan",
+ years:"1954–1990", country:"米", era:["80s"], genre:["Blues","Rock"],
+ ac:"#a65a2e",
+ catch:"極太弦を捻じ伏せる、テキサスブルースの豪腕。",
+ hito:"豪腕テキサスブルース", tech:["チョーキング","ビブラート","リフ","速弾き"], lv:3,
+ prof:"1980年代にブルースを再びチャートへ引き戻したテキサスの英雄。太い弦と強靭なピッキングから生まれる轟音と、ジミヘン譲りの自由さ、アルバート・キング譲りの強烈なベンドを併せ持つ、テキサスブルースを代表する存在でございます。",
+ dnaTags:["極太弦&強靭ピッキング","1音半ベンド","シャッフルの鬼","ヘヴィなブルーストーン"],
+ gear:{g:"Fender Stratocaster「Number One」",a:"Fender系アンプの多段使い",s:"Tube Screamerでプッシュした太く粘るトーン。太いゲージの弦と強靭なピッキングが音の芯。"},
+ songs:[
+  {t:"Pride and Joy",n:"シャッフルの名刺代わり。ベースラインとコードを同時に刻む右手が肝"},
+  {t:"Texas Flood",n:"スローブルースの金字塔。ベンドとビブラートの博覧会"},
+  {t:"Scuttle Buttin'",n:"高速インストナンバー。テキサス流の腕自慢"}
+ ],
+ beg:{t:"Pride and Joy(メインリフ)",n:"シャッフルのリズム感を体に入れる最良の教材でございます。まずはゆっくりから。"},
+ sim:["clapton","hendrix","mayer"],
+ inflFrom:"ジミ・ヘンドリックス、アルバート・キング、B.B.キング",
+ inflTo:"ジョン・メイヤーはじめ現代ブルース系全般"
+},
+{
+ id:"page", nm:"ジミー・ペイジ", en:"Jimmy Page",
+ years:"1944–", country:"英", era:["70s"], genre:["Rock","Hard Rock"],
+ ac:"#c9a227",
+ catch:"リフの錬金術師にして、音の建築家。",
+ hito:"リフの錬金術師", tech:["リフ","アルペジオ","チョーキング"], lv:3,
+ prof:"レッド・ツェッペリンの頭脳。ブルースを源流に、リフの構築力・変則チューニング・スタジオワークでハードロックの設計図を描いた人物でございます。緻密さと荒々しさが同居する、プロデューサー的視点を併せ持つ先駆的なギタリストでございます。",
+ dnaTags:["歴史的リフメイカー","弓弾き(ボウイング)","変則チューニング","荒々しくも構築的"],
+ gear:{g:"Gibson Les Paul、ダブルネックEDS-1275",a:"Marshall",s:"レスポール+マーシャルの王道ロックトーン。テルミンや逆回転など実験も。"},
+ songs:[
+  {t:"Stairway to Heaven",n:"静から動へ。構成美の極致とされる代表曲"},
+  {t:"Whole Lotta Love",n:"ロック史上屈指のリフ。中間部の実験精神も聴きどころ"},
+  {t:"Black Dog",n:"変則的なリズムのリフが癖になる難曲"}
+ ],
+ beg:{t:"Stairway to Heaven(イントロ)",n:"アルペジオの定番教材。左手のフォーム移動を丁寧に学べます。"},
+ sim:["evh","beck","slash"],
+ inflFrom:"スコッティ・ムーア、初期ブルース、ロカビリー",
+ inflTo:"エディ・ヴァン・ヘイレンほかハードロック全般"
+},
+{
+ id:"evh", nm:"エディ・ヴァン・ヘイレン", en:"Eddie Van Halen",
+ years:"1955–2020", country:"米(蘭出身)", era:["80s"], genre:["Hard Rock"],
+ ac:"#d23b3b",
+ catch:"ライトハンドで世界を沸かせた、陽気な発明王。",
+ hito:"タッピング革命", tech:["タッピング","速弾き","リフ"], lv:2,
+ prof:"両手タッピング(ライトハンド奏法)をロックギターの主要な表現技法として広く普及させ、自作改造ギター「フランケンシュタイン」と共に80年代ロックの音を定義した革新者。超絶技巧でありながら、常に明るくグルーヴィーなのが真骨頂でございます。",
+ dnaTags:["タッピングを広めた立役者","ブラウンサウンド","改造ギター文化の立役者","明るく歌うテクニック"],
+ gear:{g:"自作「Frankenstrat」(ストラト+ハムバッカー)",a:"Marshallを電圧調整で駆動",s:"「ブラウンサウンド」と呼ばれる太く温かい歪み。フェイザーも印象的。"},
+ songs:[
+  {t:"Eruption",n:"タッピング革命の1分42秒。ギター史の事件"},
+  {t:"Jump",n:"シンセ主体ながらギターソロは短くも完璧"},
+  {t:"Panama",n:"リフ・バッキングのノリの良さはエディの真髄"}
+ ],
+ beg:{t:"You Really Got Me(カバー)",n:"パワーコードのリフから入り、エディのノリを体感できる一曲でございます。"},
+ sim:["page","slash"],
+ inflFrom:"エリック・クラプトン、ジミー・ペイジ",
+ inflTo:"80年代以降のテクニカル系ギタリスト全般に広く影響"
+},
+{
+ id:"bbking", nm:"B.B.キング", en:"B.B. King",
+ years:"1925–2015", country:"米", era:["50s","60s"], genre:["Blues"],
+ ac:"#3e7c5b",
+ catch:"一音で泣かせる、ブルースの王。愛器の名はルシール。",
+ hito:"一音入魂のビブラート", tech:["チョーキング","ビブラート"], lv:2,
+ prof:"「キング・オブ・ブルース」と称された巨人。速く多く弾くのではなく、一音のベンドと蝶が羽ばたくようなビブラートで歌う様式を確立しました。歌とギターの掛け合い(コール&レスポンス)は、多くのブルース/ロックギタリストのリードプレイに受け継がれております。",
+ dnaTags:["バタフライビブラート","一音入魂","コール&レスポンス","B.B.ボックス"],
+ gear:{g:"Gibson ES-355「Lucille」",a:"Gibson/Fender系をクリーンで",s:"セミアコの甘く丸いクリーントーン。歪みに頼らない粒立ち。"},
+ songs:[
+  {t:"The Thrill Is Gone",n:"哀愁のマイナーブルース。代名詞的ヒット"},
+  {t:"Every Day I Have the Blues",n:"ビッグバンドと共に歌い上げる定番"},
+  {t:"Sweet Little Angel",n:"歌とギターの対話が美しいスローブルース"}
+ ],
+ beg:{t:"The Thrill Is Gone",n:"音数が少なく、ビブラートと「間」の勉強にこれ以上の教材はございません。"},
+ sim:["clapton","srv"],
+ inflFrom:"T-ボーン・ウォーカー、ロニー・ジョンソン",
+ inflTo:"クラプトン、SRVをはじめ多くのブルース/ロック奏者"
+},
+{
+ id:"chuck", nm:"チャック・ベリー", en:"Chuck Berry",
+ years:"1926–2017", country:"米", era:["50s"], genre:["Rock'n'Roll"],
+ ac:"#c2452f",
+ catch:"ロックンロールのギター言語を形づくった立役者。",
+ hito:"ロックンロールの原点", tech:["リフ"], lv:2,
+ prof:"ダブルストップのイントロ、跳ねるブギのバッキング、ダックウォーク——後のロックギターの語彙に決定的な影響を与えた存在でございます。ビートルズやローリング・ストーンズをはじめ、多くの後進がその影響を公言しております。",
+ dnaTags:["ダブルストップ","ブギのバッキング","ダックウォーク","ロックンロールの原型"],
+ gear:{g:"Gibson ES-350T / ES-355",a:"Fender系",s:"セミアコの軽快なクランチ。歪みすぎない跳ねるトーン。"},
+ songs:[
+  {t:"Johnny B. Goode",n:"数え切れないほどコピーされてきた永遠のイントロ"},
+  {t:"Roll Over Beethoven",n:"ビートルズもカバーしたロックンロール賛歌"},
+  {t:"Maybellene",n:"1955年。ロックンロール誕生を告げる一曲"}
+ ],
+ beg:{t:"Johnny B. Goode(イントロ)",n:"ダブルストップの登竜門。ロックの歴史を指で辿れる教材でございます。"},
+ sim:["evh"],
+ inflFrom:"T-ボーン・ウォーカー、ルイ・ジョーダン",
+ inflTo:"ビートルズ、ストーンズをはじめ後のロック全般"
+},
+{
+ id:"gilmour", nm:"デヴィッド・ギルモア", en:"David Gilmour",
+ years:"1946–", country:"英", era:["70s"], genre:["Rock","Progressive"],
+ ac:"#35618a",
+ catch:"宇宙まで届く一音。「間」で聴かせる叙情派の代表格。",
+ hito:"間で聴かせる叙情", tech:["チョーキング","ビブラート","空間系","アルペジオ"], lv:2,
+ prof:"ピンク・フロイドのギタリスト。速さを競わず、選び抜いた音符とロングトーン、ディレイの空間で情景を描く様式美の人でございます。ソロを「歌」として構築する姿勢は、メロディ重視のギタリストの理想像でございます。",
+ dnaTags:["ロングトーンの美学","空間系エフェクト","メロディアスなソロ構築","正確無比なベンド"],
+ gear:{g:"Fender Stratocaster「The Black Strat」",a:"Hiwatt",s:"Big Muffの歪みをディレイで広げた、伸びやかで浮遊感あるリードトーン。"},
+ songs:[
+  {t:"Comfortably Numb",n:"名ソロを選ぶ企画で常に上位に挙がる名演"},
+  {t:"Shine On You Crazy Diamond",n:"4音のモチーフから始まる壮大な叙事詩"},
+  {t:"Time",n:"ベンドの音程感が完璧なお手本のようなソロ"}
+ ],
+ beg:{t:"Wish You Were Here(イントロ)",n:"アコースティックの定番。ハンマリング&プリングの練習にも最適でございます。"},
+ sim:["clapton","bbking"],
+ inflFrom:"ハンク・マーヴィン、初期ブルース",
+ inflTo:"叙情派・空間系ギタリスト全般"
+},
+{
+ id:"nile", nm:"ナイル・ロジャース", en:"Nile Rodgers",
+ years:"1952–", country:"米", era:["70s","80s"], genre:["Funk","Pop"],
+ ac:"#c75d8a",
+ catch:"右手一本で世界を踊らせる、カッティングの帝王。",
+ hito:"右手がリズム隊", tech:["カッティング","ファンク"], lv:3,
+ prof:"シックの創設者にして超一流プロデューサー。16分のカッティング「チャッキング」で、ギター1本をリズムセクションに変えてしまいます。コードを分解して押さえる独自のヴォイシングも含め、バッキングを芸術の域に高めた代表的存在でございます。",
+ dnaTags:["16分カッティング","チャッキング","分数コードヴォイシング","ヒットメイカー"],
+ gear:{g:"Fender Stratocaster「The Hitmaker」",a:"クリーン一筋",s:"歪みなしのタイトなクリーン。コンプ感のある粒立ちが命。"},
+ songs:[
+  {t:"Le Freak (Chic)",n:"カッティングの教科書。右手のキレがすべて"},
+  {t:"Good Times (Chic)",n:"ヒップホップの原点にもなった伝説のグルーヴ"},
+  {t:"Get Lucky (Daft Punk)",n:"2013年、世界を再び踊らせた現役ぶり"}
+ ],
+ beg:{t:"Le Freak(カッティング)",n:"右手の振りを止めないことがコツ。リズム感が劇的に鍛えられます。"},
+ sim:["chuck","wong"],
+ inflFrom:"ジミー・ノーレン(JB's)、ジャズギター",
+ inflTo:"ポップス・ファンク系カッティング全般"
+},
+{
+ id:"char", nm:"Char(竹中尚人)", en:"Char",
+ years:"1955–", country:"日", era:["70s","80s"], genre:["Rock","Funk","Blues"],
+ ac:"#3fa0b8",
+ catch:"日本のロックギターを切り拓いた、永遠のギター小僧。",
+ hito:"日本ロックの先駆け", tech:["カッティング","ファンク","リフ","チョーキング"], lv:2,
+ prof:"16歳でプロ入りし、1976年「Smoky」で衝撃のデビュー。ジミヘン由来の自由なコードワークとファンキーなカッティングを日本語ロックに持ち込んだ先駆者でございます。ムスタングを操る姿は日本のギタリストの憧れの原点。",
+ dnaTags:["ファンキーなカッティング","コード&リード融合","ムスタング使い","日本ロックギターの先駆者"],
+ gear:{g:"Fender Mustang / Stratocaster",a:"Marshall、Fender系",s:"カッティングの切れ味と甘いリードトーンを行き来する多彩な音。"},
+ songs:[
+  {t:"Smoky",n:"デビュー曲にして代表曲。リフとカッティングの応酬"},
+  {t:"気絶するほど悩ましい",n:"歌謡曲とロックギターの見事な融合"},
+  {t:"Shinin' You Shinin' Day",n:"爽快なカッティングが光る人気曲"}
+ ],
+ beg:{t:"Smoky(メインリフ)",n:"単音リフから始められる、Charの世界への入り口でございます。"},
+ sim:["hendrix","nile","hotei"],
+ inflFrom:"ジミ・ヘンドリックス、エリック・クラプトン、ジェフ・ベック",
+ inflTo:"日本のロック・ポップスギタリスト全般"
+}
+];
+
+/* ==== 追加20名 ==== */
+G.push(
+{
+ id:"beck", nm:"ジェフ・ベック", en:"Jeff Beck",
+ years:"1944–2023", country:"英", era:["60s","70s"], genre:["Rock","Fusion","Blues"],
+ ac:"#7a8450",
+ catch:"ピックを捨て、ギターを「声」に変えた求道者。",
+ hito:"ギターを声にした男", tech:["指弾き","ビブラート","チョーキング"], lv:3,
+ prof:"エリック・クラプトン、ジミー・ペイジと並び、いわゆる「三大ギタリスト」と称されるヤードバーズ出身の一人。指先とアーム、ボリューム操作を駆使してギターを人の声のように歌わせる独自の奏法へ到達し、晩年まで進化を止めなかった探究の人でございます。",
+ dnaTags:["指弾き&アームの魔術","声のように歌うトーン","生涯進化した探究心","ハーモニクスの妙技"],
+ gear:{g:"Fender Stratocaster(指弾き)",a:"Marshall",s:"ピックレスの繊細なタッチとアームを組み合わせた、肉声のような表現。"},
+ songs:[
+  {t:"哀しみの恋人達 (Cause We've Ended as Lovers)",n:"スティーヴィー・ワンダー作曲。ベックの演奏で広く知られる、インストで「歌う」ことの到達点"},
+  {t:"Led Boots",n:"フュージョン期の代表曲。変拍子とグルーヴ"},
+  {t:"People Get Ready",n:"カーティス・メイフィールド作の名曲を、ロッド・スチュワートと共に。泣きのトーン"}
+ ],
+ beg:{t:"哀しみの恋人達(テーマ部)",n:"ゆっくりのテンポでボリューム奏法とビブラートに触れられる、ベック入門の定番でございます。"},
+ sim:["clapton","page"],
+ inflFrom:"レス・ポール、クリフ・ギャラップ、ブルース全般",
+ inflTo:"松本孝弘ほか、表現派ギタリスト全般"
+},
+{
+ id:"richards", nm:"キース・リチャーズ", en:"Keith Richards",
+ years:"1943–", country:"英", era:["60s","70s"], genre:["Rock","Rock'n'Roll"],
+ ac:"#8c6d4f",
+ catch:"リフこそ歌。ローリング・ストーンズの背骨。",
+ hito:"リフこそ歌", tech:["リフ"], lv:1,
+ prof:"ストーンズを60年以上駆動し続けるリフの職人。5弦に張り替えたオープンGチューニングから生まれる独特のコードワークは、「うまさ」より「格好よさ」がロックの核心だと教えてくれます。",
+ dnaTags:["オープンGチューニング","5弦テレキャスター","リフこそ歌","ルーズで骨太なグルーヴ"],
+ gear:{g:"Fender Telecaster「Micawber」(5弦・オープンG)",a:"Fender系",s:"ジャキッと乾いたクランチ。歪ませすぎないのが流儀。"},
+ songs:[
+  {t:"(I Can't Get No) Satisfaction",n:"ファズリフの元祖にしてロック史の事件"},
+  {t:"Jumpin' Jack Flash",n:"オープンチューニングのリフの真骨頂"},
+  {t:"Start Me Up",n:"5弦オープンGの教科書のようなリフ"}
+ ],
+ beg:{t:"Satisfaction(リフ)",n:"単音3音から始まる、世界で最も有名なリフのひとつ。リズムの「タメ」を学べます。"},
+ sim:["chuck","jackwhite"],
+ inflFrom:"チャック・ベリー、マディ・ウォーターズ",
+ inflTo:"パンク以降のロックンロール全般"
+},
+{
+ id:"harrison", nm:"ジョージ・ハリスン", en:"George Harrison",
+ years:"1943–2001", country:"英", era:["60s","70s"], genre:["Rock","Pop"],
+ ac:"#b06a50",
+ catch:"歌に仕える美学。「静かなるビートル」の旋律。",
+ hito:"歌に仕える旋律", tech:["スライド","アルペジオ"], lv:2,
+ prof:"ビートルズのリードギタリスト。目立つことより曲に何が必要かを最優先し、歌えるフレーズだけを厳選して弾く姿勢は、ポップスにおけるギターの理想形でございます。後年はスライドギターでも独自の声を獲得しました。",
+ dnaTags:["歌に仕えるメロディ","スライドギター","12弦の煌めき","インド音楽の香り"],
+ gear:{g:"Rickenbacker 12弦、Gretsch、Fender Stratocaster「Rocky」",a:"Vox",s:"煌びやかなクリーン〜軽いクランチ。後年は甘いスライドトーン。"},
+ songs:[
+  {t:"Something",n:"ビートルズ後期を代表するラブソング。ソロも旋律美の見本"},
+  {t:"Here Comes the Sun",n:"アコースティックの永遠の定番"},
+  {t:"My Sweet Lord",n:"ソロ期の代表曲。スライドが歌う"}
+ ],
+ beg:{t:"Here Comes the Sun(イントロ)",n:"カポを付けたアルペジオの名教材。指のセパレーションが自然と鍛えられます。"},
+ sim:["gilmour","knopfler"],
+ inflFrom:"カール・パーキンス、チェット・アトキンス、ラヴィ・シャンカール",
+ inflTo:"ポップスにおけるギターアレンジ全般"
+},
+{
+ id:"santana", nm:"カルロス・サンタナ", en:"Carlos Santana",
+ years:"1947–", country:"墨/米", era:["70s"], genre:["Latin","Rock","Blues"],
+ ac:"#e08a2e",
+ catch:"一音のサステインに祈りを込める、ラテンロックの太陽。",
+ hito:"一音のサステイン", tech:["チョーキング","ビブラート"], lv:2,
+ prof:"ウッドストックで衝撃を与えて以来、ラテンのリズムとブルースフィーリングを融合した独自の存在。どこまでも伸びるサステインと官能的なビブラートによる「一音の説得力」は、B.B.キングらの「一音で聴かせる」美学に連なるものでございます。",
+ dnaTags:["ラテンのリズム","伸びるサステイン","泣きのフレーズ","官能的なビブラート"],
+ gear:{g:"PRS Santanaモデル",a:"Mesa/Boogie ほか",s:"ミッドの太い、どこまでも伸びるサステイントーン。"},
+ songs:[
+  {t:"Black Magic Woman",n:"ピーター・グリーン(フリートウッド・マック)作。サンタナ版が世界的ヒットに"},
+  {t:"Europa",n:"泣きのインスト。ロングトーンの美の極致"},
+  {t:"Smooth",n:"1999年、世界を再び踊らせた大ヒット"}
+ ],
+ beg:{t:"Oye Como Va(リフ)",n:"ティト・プエンテ作の名曲。シンプルな2コードのリフでラテンのノリを体感できる、サンタナ入門の定番でございます。"},
+ sim:["gilmour","bbking"],
+ inflFrom:"B.B.キング、ピーター・グリーン、ラテン音楽",
+ inflTo:"ラテンロック、メロディ重視のギタリスト全般"
+},
+{
+ id:"may", nm:"ブライアン・メイ", en:"Brian May",
+ years:"1947–", country:"英", era:["70s","80s"], genre:["Rock"],
+ ac:"#8f2f3f",
+ catch:"父と作った手製ギターで、オーケストラを鳴らす男。",
+ hito:"ハーモニーの建築家", tech:["チョーキング","リフ"], lv:2,
+ prof:"クイーンのギタリストにして天体物理学者。父親と自作したギター「レッド・スペシャル」と6ペンス硬貨のピックで、多重録音によるギターオーケストレーションを確立しました。ハーモニーを設計する建築家のようなギタリストでございます。",
+ dnaTags:["多重録音オーケストラ","自作ギターRed Special","6ペンス硬貨ピック","ハーモニーの建築家"],
+ gear:{g:"自作「Red Special」",a:"Vox AC30 + トレブルブースター",s:"コインピックで弾く、太く歌うヴァイオリンのようなトーン。"},
+ songs:[
+  {t:"Bohemian Rhapsody",n:"ソロも含め、曲全体が芸術品"},
+  {t:"Killer Queen",n:"ギターハーモニーの魔法が凝縮"},
+  {t:"We Will Rock You",n:"締めのソロは多くのロックファンに親しまれる名演"}
+ ],
+ beg:{t:"We Will Rock You(エンディングソロ)",n:"短いながらチョーキングの醍醐味が詰まった、達成感のある入門ソロでございます。"},
+ sim:["page","blackmore"],
+ inflFrom:"ハンク・マーヴィン、ロリー・ギャラガー",
+ inflTo:"ギターオーケストレーション、ハーモニー重視の後進全般"
+},
+{
+ id:"angus", nm:"アンガス・ヤング", en:"Angus Young",
+ years:"1955–", country:"豪", era:["70s","80s"], genre:["Hard Rock"],
+ ac:"#2f3f6e",
+ catch:"学生服で駆け回る、パワーコードの永久機関。",
+ hito:"疾走するパワーコード", tech:["リフ","チョーキング"], lv:1,
+ prof:"AC/DCのリードギタリスト。シンプルで強力なリフ、ブギー感のあるリズム、ブルース/ペンタトニックを軸に、AC/DCのサウンドを結成以来長年にわたり支え続けています。「シンプルを極めることの凄み」を教えてくれる存在でございます。",
+ dnaTags:["パワーコードの権化","疾走ブギ","SG一筋","無尽蔵のエネルギー"],
+ gear:{g:"Gibson SG",a:"Marshall直結",s:"エフェクターにほとんど頼らない、SG+マーシャルの生々しいクランチ。"},
+ songs:[
+  {t:"Highway to Hell",n:"シンプルなコードで世界中を熱狂させたリフ"},
+  {t:"Back in Black",n:"ロック史上屈指のリフとグルーヴ"},
+  {t:"Thunderstruck",n:"ハンマリングだけのイントロは名刺代わり"}
+ ],
+ beg:{t:"Highway to Hell(リフ)",n:"コードチェンジの練習にそのまま使える、開放コード主体の王道リフでございます。"},
+ sim:["chuck","richards"],
+ inflFrom:"チャック・ベリー、兄マルコム・ヤング",
+ inflTo:"リフ主体のハードロック全般"
+},
+{
+ id:"blackmore", nm:"リッチー・ブラックモア", en:"Ritchie Blackmore",
+ years:"1945–", country:"英", era:["70s"], genre:["Hard Rock"],
+ ac:"#4a2f73",
+ catch:"クラシックとロックを溶接した、様式美の立役者。",
+ hito:"様式美の立役者", tech:["リフ","速弾き"], lv:1,
+ prof:"ディープ・パープル、レインボーを率いた孤高の天才。クラシック音楽の語法をハードロックへ取り入れ、後のネオクラシカル系ギタリストに大きな影響を与えました。即興の閃きと構築美が同居する演奏でございます。",
+ dnaTags:["クラシカルな音使い","歴史的リフメイカー","ストラト+マーシャル","即興の閃き"],
+ gear:{g:"Fender Stratocaster",a:"Marshall(Major等)",s:"ストラトの硬質な歪み。テープエコーの味付けも特徴。"},
+ songs:[
+  {t:"Smoke on the Water",n:"世界中で数え切れないほど弾かれてきたリフ"},
+  {t:"Highway Star",n:"クラシカルな速弾きソロの金字塔"},
+  {t:"Burn",n:"リフ・ソロともに様式美の完成形"}
+ ],
+ beg:{t:"Smoke on the Water(リフ)",n:"多くの人が最初に触れる、平行4度で刻む有名リフ。正しい運指で覚え直す価値がございます。"},
+ sim:["yngwie","page"],
+ inflFrom:"クラシック音楽、初期ロックンロール",
+ inflTo:"イングヴェイほか様式美・ネオクラシカル全般"
+},
+{
+ id:"knopfler", nm:"マーク・ノップラー", en:"Mark Knopfler",
+ years:"1949–", country:"英", era:["70s","80s"], genre:["Rock"],
+ ac:"#2f8a7a",
+ catch:"指弾きで語る、クリーントーンの詩人。",
+ hito:"指弾きの語り部", tech:["指弾き","アルペジオ"], lv:2,
+ prof:"ダイアー・ストレイツのフロントマン。ピックを使わないフィンガースタイルを主体とし、親指と指先で爪弾くストラトのクリーントーンは、囁くように語りかける独特の声でございます。音数を抑えた「抑制の美学」の名手。",
+ dnaTags:["指弾きストラト","クリーントーンの語り","歌うようなフレージング","抑制の美学"],
+ gear:{g:"Fender Stratocaster、National リゾネーター",a:"Fender / Music Man",s:"指弾きならではの柔らかいクリーン。ハーフトーンの艶。"},
+ songs:[
+  {t:"Sultans of Swing",n:"指弾きストラトの魅力が凝縮された出世作"},
+  {t:"Money for Nothing",n:"ワウ半止めの図太いリフも実は彼の顔"},
+  {t:"Brothers in Arms",n:"数音で泣かせるロングトーンの傑作"}
+ ],
+ beg:{t:"Money for Nothing(リフ)",n:"指弾きで刻む図太い有名リフ。ミュートの感覚とリズムの安定が鍛えられます。"},
+ sim:["gilmour","harrison"],
+ inflFrom:"チェット・アトキンス、J.J.ケイル、ハンク・マーヴィン",
+ inflTo:"フィンガースタイルのエレキ奏者全般"
+},
+{
+ id:"slash", nm:"スラッシュ", en:"Slash",
+ years:"1965–", country:"英/米", era:["80s","90s"], genre:["Hard Rock"],
+ ac:"#5a3a24",
+ catch:"シルクハットとレスポール。歌えるロックソロの代名詞。",
+ hito:"歌えるロックソロ", tech:["チョーキング","リフ","速弾き"], lv:3,
+ prof:"ガンズ・アンド・ローゼズのリードギタリスト。レスポール+マーシャルという王道の音で、口ずさめるほどメロディアスなソロを構築する天才でございます。80年代の派手な技巧競争のあと、「歌えるソロ」の価値を再証明しました。",
+ dnaTags:["レスポール+マーシャル","歌えるロックソロ","ペンタ+ハーモニックマイナー","シルクハットの伊達男"],
+ gear:{g:"Gibson Les Paul",a:"Marshall",s:"太く甘いレスポールトーン。ワウの使い方も歌心たっぷり。"},
+ songs:[
+  {t:"Sweet Child O' Mine",n:"イントロは80年代最重要フレーズのひとつ"},
+  {t:"November Rain",n:"壮大なバラードを締める2つの名ソロ"},
+  {t:"Welcome to the Jungle",n:"攻撃性と歌心が同居するリフとソロ"}
+ ],
+ beg:{t:"Sweet Child O' Mine(イントロ)",n:"指の独立とポジション把握が鍛えられる、憧れ度満点の練習曲でございます。"},
+ sim:["page","evh","perry"],
+ inflFrom:"ジミー・ペイジ、ジョー・ペリー(エアロスミス)",
+ inflTo:"90年代以降のロックギタリスト全般"
+},
+{
+ id:"yngwie", nm:"イングヴェイ・マルムスティーン", en:"Yngwie Malmsteen",
+ years:"1963–", country:"瑞", era:["80s"], genre:["Metal","Hard Rock"],
+ ac:"#e3b341",
+ catch:"バッハとパガニーニをフルピッキングで。ネオクラシカルの代名詞。",
+ hito:"ネオクラシカルの疾風", tech:["速弾き"], lv:4,
+ prof:"スウェーデンが生んだ速弾きの代名詞。クラシックの語法——ハーモニックマイナー、ディミニッシュ——を超高速のフルピッキングで弾き切るスタイルは、「ネオクラシカル」と呼ばれる潮流を代表するものとなりました。",
+ dnaTags:["ネオクラシカルの立役者","ハーモニックマイナー","超高速フルピッキング","スキャロップ指板"],
+ gear:{g:"Fender Stratocaster(スキャロップ加工指板)",a:"Marshall",s:"ストラトのシングルコイルで弾き切る、艶のあるクラシカルな歪み。"},
+ songs:[
+  {t:"Far Beyond the Sun",n:"ネオクラシカルの開幕を告げたインスト"},
+  {t:"Black Star",n:"泣きとクラシカルの融合。実は歌心の人"},
+  {t:"Rising Force",n:"疾走する様式美の代表曲"}
+ ],
+ beg:{t:"Black Star(冒頭テーマ)",n:"速弾き以前に、ハーモニックマイナーの響きをゆっくり味わうところから始めるのが近道でございます。"},
+ sim:["blackmore","evh","vai"],
+ inflFrom:"リッチー・ブラックモア、バッハ、パガニーニ",
+ inflTo:"ネオクラシカル・テクニカル系全般"
+},
+{
+ id:"cobain", nm:"カート・コバーン", en:"Kurt Cobain",
+ years:"1967–1994", country:"米", era:["90s"], genre:["Alternative","Rock"],
+ ac:"#5f7a4f",
+ catch:"うまさより衝動。90年代の空気を変えた轟音。",
+ hito:"衝動のパワーコード", tech:["リフ"], lv:1,
+ prof:"ニルヴァーナのフロントマン。技巧を誇るギターヒーロー像を打ち壊し、パワーコードと轟音・静寂の落差だけで時代の感情を鳴らしました。「何を弾くかより、なぜ弾くか」を突きつけた存在でございます。",
+ dnaTags:["パワーコードの衝動","轟音と静寂の落差","左利き","飾らないソロ"],
+ gear:{g:"Fender Jaguar / Mustang(左用)",a:"歪みはBOSS DS-1等を直結",s:"ざらついた轟音と、囁くようなクリーンの二面性。"},
+ songs:[
+  {t:"Smells Like Teen Spirit",n:"4つのコードが時代を変えた"},
+  {t:"Come as You Are",n:"コーラスのかかった浮遊感あるリフ"},
+  {t:"Lithium",n:"静と動の落差というニルヴァーナの発明"}
+ ],
+ beg:{t:"Smells Like Teen Spirit(リフ)",n:"パワーコードの練習曲として最良の一曲。ミュートの感覚も学べます。"},
+ sim:["jackwhite","morello"],
+ inflFrom:"ビートルズ、パンク、ピクシーズ",
+ inflTo:"オルタナティブロック全般"
+},
+{
+ id:"frusciante", nm:"ジョン・フルシアンテ", en:"John Frusciante",
+ years:"1970–", country:"米", era:["90s","00s"], genre:["Rock","Funk"],
+ ac:"#b03a5f",
+ catch:"隙間で歌わせる。バンドサウンドの設計者。",
+ hito:"隙間で鳴らす設計者", tech:["カッティング","ファンク","アルペジオ"], lv:2,
+ prof:"レッド・ホット・チリ・ペッパーズのギタリスト。ファンクなカッティング、コード感のあるアルペジオ、そして「弾かない場所」の設計で、バンド全体を鳴らす現代バッキングの教科書でございます。本人も影響を公言するジミヘンの精神を、90年代の文脈で受け継いだ存在でございます。",
+ dnaTags:["ファンクなカッティング","隙間を活かすバッキング","コード感あるアルペジオ","メロディックなソロ"],
+ gear:{g:"Fender Stratocaster('62)",a:"Marshall(Major等)",s:"枯れたヴィンテージトーン。歪みは荒々しく、クリーンは繊細に。"},
+ songs:[
+  {t:"Californication",n:"シンプルな2コードのアルペジオが永遠に響く"},
+  {t:"Under the Bridge",n:"コードメロディの美しいイントロは現代の課題曲"},
+  {t:"Can't Stop",n:"カッティングファンクの代表格"}
+ ],
+ beg:{t:"Californication(イントロ)",n:"2つのコードを分散して弾くだけで曲になる、アルペジオ入門の傑作でございます。"},
+ sim:["hendrix","nile"],
+ inflFrom:"ジミ・ヘンドリックス、フランク・ザッパ",
+ inflTo:"現代のバッキング重視ギタリスト全般"
+},
+{
+ id:"morello", nm:"トム・モレロ", en:"Tom Morello",
+ years:"1964–", country:"米", era:["90s"], genre:["Alternative","Metal","Funk"],
+ ac:"#3a6fd4",
+ catch:"ギターをターンテーブルに変えた異能。",
+ hito:"ノイズの魔術", tech:["リフ","空間系"], lv:1,
+ prof:"レイジ・アゲインスト・ザ・マシーンのギタリスト。キルスイッチ、ワーミー、ノイズを駆使してDJのスクラッチのような音をギターで再現し、「ギターの音」の可能性を大きく広げました。重量級リフの職人でもございます。",
+ dnaTags:["ギターをターンテーブルに","キルスイッチ奏法","ノイズの探究者","重量級リフ"],
+ gear:{g:"自作「Arm The Homeless」ほか",a:"Marshall(50W)",s:"設定を固定した同じ音から、無限のノイズ表現を引き出す。"},
+ songs:[
+  {t:"Killing in the Name",n:"ドロップDの重量リフと衝撃のノイズソロ"},
+  {t:"Bulls on Parade",n:"ワウを叩くスクラッチ奏法が炸裂"},
+  {t:"Guerrilla Radio",n:"キルスイッチソロの代表例"}
+ ],
+ beg:{t:"Killing in the Name(リフ)",n:"ドロップDチューニング入門に最適。パワーコードが1本指で弾けるようになります。"},
+ sim:["cobain","hendrix","frehley"],
+ inflFrom:"ジミー・ペイジ、ランディ・ローズ、KISS、ヒップホップ",
+ inflTo:"ミクスチャー・ラウド系全般"
+},
+{
+ id:"jackwhite", nm:"ジャック・ホワイト", en:"Jack White",
+ years:"1975–", country:"米", era:["00s"], genre:["Rock","Blues","Alternative"],
+ ac:"#b71c1c",
+ catch:"赤と白の衝動。ガレージから鳴らすモダンブルース。",
+ hito:"ガレージの衝動", tech:["リフ","スライド"], lv:1,
+ prof:"ホワイト・ストライプスで00年代ロックを塗り替えた男。安物のビザールギターとファズで、ブルースの荒々しい衝動を現代に蘇らせました。整いすぎないことの格好よさを体現する存在でございます。",
+ dnaTags:["ガレージの衝動","オクターブファズ","ローファイ美学","ブルースの現代的解釈"],
+ gear:{g:"Airline等のビザールギター",a:"ヴィンテージ系を大音量で",s:"Big Muff+オクターブファズの荒々しく太い音。"},
+ songs:[
+  {t:"Seven Nation Army",n:"スタジアム中が歌うあのリフ(実はギター)"},
+  {t:"Fell in Love with a Girl",n:"1分50秒の衝動"},
+  {t:"Ball and Biscuit",n:"モダンブルースの名演。ソロは咆哮"}
+ ],
+ beg:{t:"Seven Nation Army(リフ)",n:"単音7音の世界的リフ。初めてのリフ練習にこれ以上のものはございません。"},
+ sim:["cobain","richards"],
+ inflFrom:"ロバート・ジョンソン、サン・ハウス、ガレージロック",
+ inflTo:"00年代以降のガレージ・ブルースロック全般"
+},
+{
+ id:"mayer", nm:"ジョン・メイヤー", en:"John Mayer",
+ years:"1977–", country:"米", era:["00s","10s〜"], genre:["Blues","Pop","Rock"],
+ ac:"#6b8fc9",
+ catch:"ブルースの伝統を、現代ポップスの中で歌い継ぐ人。",
+ hito:"現代ブルースの継承者", tech:["チョーキング","ビブラート","カッティング"], lv:3,
+ prof:"SRV、ヘンドリックス、クラプトンの系譜を受け継ぐ、現代を代表するブルースギタリストのひとりにして、ポップスターでもある稀有な存在。親指を使うコードワークと繊細なタッチで、歌とギターを高い次元で両立させております。",
+ dnaTags:["現代のブルース継承者","親指を使うコードワーク","歌とギターの両立","タッチの繊細さ"],
+ gear:{g:"Fender Stratocaster → PRS Silver Sky",a:"Two-Rock、Dumble系",s:"クリーン〜クランチの艶やかなトーン。タッチの強弱で表情を作る。"},
+ songs:[
+  {t:"Gravity",n:"現代スローブルースの代表曲。一音の重み"},
+  {t:"Slow Dancing in a Burning Room",n:"哀愁のイントロと歌うようなオブリガード"},
+  {t:"Neon",n:"親指を使う難曲。指の独立の到達点"}
+ ],
+ beg:{t:"Slow Dancing in a Burning Room(イントロ)",n:"ゆったりしたテンポでダブルストップとオブリガードの基本に触れられます。"},
+ sim:["srv","clapton","hendrix"],
+ inflFrom:"スティーヴィー・レイ・ヴォーン、ジミ・ヘンドリックス、B.B.キング",
+ inflTo:"現代のブルース・ポップ系ギタリスト全般"
+},
+{
+ id:"henson", nm:"ティム・ヘンソン", en:"Tim Henson",
+ years:"1993–", country:"米", era:["10s〜"], genre:["Progressive","Rock"],
+ ac:"#4fbf9f",
+ catch:"ヒップホップ世代が生んだ、まったく新しいギターのかたち。",
+ hito:"新世代の超絶クリーン", tech:["タッピング","速弾き","アルペジオ"], lv:5,
+ prof:"ポリフィアのギタリスト。タッピングやスラーを多用した滑らかなフレーズをヒップホップ的なビートに乗せる奏法で、SNS世代のギター観を大きく更新しました。「歪みに頼らない超絶技巧」という新しい潮流を代表する一人でございます。",
+ dnaTags:["モダンプログ","タッピング&スラーの滑らかさ","エレガット(ナイロン弦)の新機軸","ヒップホップ的リズム"],
+ gear:{g:"Ibanez シグネチャーモデル(TOD10、エレガットのTOD10N、THBB10 等)",a:"プラグイン/モデラー中心",s:"クリーン主体で粒立ちを最優先した現代的なプロダクション。ナイロン弦のエレガットも大きな武器。"},
+ songs:[
+  {t:"Playing God",n:"クラシックギター的技法とトラップの融合"},
+  {t:"G.O.A.T.",n:"ポリフィア出世作。ギター界の事件"},
+  {t:"O.D.",n:"超絶技巧をポップに聴かせる代表曲"}
+ ],
+ beg:{t:"Playing God(冒頭フレーズをスローで)",n:"原曲は難関でございますが、冒頭数音をゆっくり辿るだけでスラーの感覚が学べます。"},
+ sim:["evh","wong"],
+ inflFrom:"ポップパンク、ヒップホップ、クラシックギター",
+ inflTo:"SNS世代の若手ギタリスト全般"
+},
+{
+ id:"wong", nm:"コリー・ウォング", en:"Cory Wong",
+ years:"1985–", country:"米", era:["10s〜"], genre:["Funk"],
+ ac:"#52b788",
+ catch:"右手は永久機関。現代ファンクカッティングの顔。",
+ hito:"16分の永久機関", tech:["カッティング","ファンク"], lv:2,
+ prof:"ヴルフペックへの参加でも知られる、現代ファンクギターを代表する一人。歪みを使わず、コンプの効いたクリーントーンで16分カッティングを刻み続けるスタイルは、ナイル・ロジャースらの美学に連なるものでございます。",
+ dnaTags:["16分カッティングマシン","クリーントーン一筋","右手のスタミナ","ファンクの現在形"],
+ gear:{g:"Fender Stratocaster(シグネチャー)",a:"クリーン+コンプレッサー",s:"歪みゼロ。粒の揃ったパーカッシブなクリーン。"},
+ songs:[
+  {t:"Cosmic Sans (feat. Tom Misch)",n:"現代ファンクカッティングの名刺"},
+  {t:"Dean Town (Vulfpeck)",n:"ヴルフペックでの鉄壁のグルーヴ"},
+  {t:"Cory Wong (Vulfpeck)",n:"本人の名を冠したファンクナンバー"}
+ ],
+ beg:{t:"1コードの16分カッティング",n:"コードはEm7ひとつで結構でございます。右手を振り続ける練習がウォング流の入り口。"},
+ sim:["nile","char"],
+ inflFrom:"ナイル・ロジャース、プリンス",
+ inflTo:"現代ファンク・リズムギター全般"
+},
+{
+ id:"hotei", nm:"布袋寅泰", en:"Tomoyasu Hotei",
+ years:"1962–", country:"日", era:["80s","90s"], genre:["J-Rock","Rock"],
+ ac:"#3d3d3d",
+ catch:"幾何学模様のギターが刻む、日本ロックの鼓動。",
+ hito:"幾何学模様のリフ", tech:["カッティング","リフ"], lv:2,
+ prof:"BOØWYのギタリストとしてバンドブームを牽引し、ソロでも日本ロックの第一線を走り続ける存在。カッティングとリフを軸にしたソリッドなスタイルと、デジタルサウンドとの融合が持ち味でございます。「Battle Without Honor or Humanity」は映画『キル・ビル』で使用され、世界的に知られるところとなりました。",
+ dnaTags:["幾何学模様のギター","カッティング&リフ","デジタルとロックの融合","日本ロックのアイコン"],
+ gear:{g:"シグネチャーモデル(白黒の幾何学模様)",a:"ソリッドな歪み+空間系",s:"エッジの立ったカッティングトーンとデジタル処理の融合。"},
+ songs:[
+  {t:"スリル",n:"リフとカッティングの代名詞的ナンバー"},
+  {t:"Battle Without Honor or Humanity",n:"映画『キル・ビル』で使用され世界的に有名"},
+  {t:"バンビーナ",n:"ソロ期を代表するロックナンバー"}
+ ],
+ beg:{t:"スリル(リフ)",n:"単音リフとブラッシングの組み合わせで、カッティングの入り口に最適でございます。"},
+ sim:["char","nile"],
+ inflFrom:"マーク・ボラン(T. Rex)、ジミ・ヘンドリックス",
+ inflTo:"バンドブーム以降の日本のギタリスト全般"
+},
+{
+ id:"matsumoto", nm:"松本孝弘", en:"Tak Matsumoto",
+ years:"1961–", country:"日", era:["90s","00s"], genre:["J-Rock","Hard Rock"],
+ ac:"#7f3fa0",
+ catch:"歌謡メロディをギターで歌う、国民的ヒットメイカー。",
+ hito:"歌謡メロディを弾く", tech:["チョーキング","リフ","速弾き"], lv:2,
+ prof:"B'zのギタリストとして日本音楽史に残るヒットを量産。ハードロックの技巧と歌謡曲のメロディセンスを融合させ、「ギターが歌の一部として聴こえる」アレンジの名手でございます。1999年、日本人として初めてギブソンとシグネチャー契約を結んだ(レスポールのシグネチャー・アーティストとしては世界で5人目)実力者でございます。",
+ dnaTags:["歌謡メロディを弾くギター","泣きのロングトーン","タイトなリフ","国民的ヒットメイカー"],
+ gear:{g:"Gibson Tak Matsumoto Les Paul",a:"Marshall系、シグネチャーアンプ",s:"太く伸びやかなリードトーン。ミュートの効いたタイトなリフ。"},
+ songs:[
+  {t:"ultra soul",n:"イントロ一発で会場が沸く国民的リフ"},
+  {t:"LOVE PHANTOM",n:"クラシカルなイントロからの疾走感"},
+  {t:"イチブトゼンブ",n:"歌に寄り添うギターアレンジの見本"}
+ ],
+ beg:{t:"ultra soul(リフ)",n:"単音の力強いリフで、ミュートとピッキングの安定を学べます。"},
+ sim:["slash","beck"],
+ inflFrom:"ジェフ・ベック、マイケル・シェンカー、ゲイリー・ムーア",
+ inflTo:"J-POPにおけるギターアレンジ全般"
+},
+{
+ id:"hide", nm:"hide", en:"hide (Hideto Matsumoto)",
+ years:"1964–1998", country:"日", era:["90s"], genre:["J-Rock","Metal"],
+ ac:"#e85298",
+ catch:"ピンクの髪とモッキンバード。日本ロックの自由の象徴。",
+ hito:"自由奔放のピンク", tech:["リフ","空間系"], lv:2,
+ prof:"X JAPANのギタリストにしてソロアーティスト。ヘヴィなリフからポップなメロディ、エフェクターを駆使したトリッキーな音まで自在に操り、「ギターはもっと自由でいい」と示し続けた存在でございます。その美学は没後も多くの人を惹きつけ続けております。",
+ dnaTags:["変幻自在のトリッキー奏法","エフェクターの魔術師","ポップとヘヴィの融合","強烈な存在感"],
+ gear:{g:"モッキンバードタイプ(イエローハート等)",a:"ヘヴィな歪み+多彩な空間系",s:"ヘヴィなリフとエフェクティブな飛び道具を自在に行き来。"},
+ songs:[
+  {t:"ピンク スパイダー",n:"ヘヴィとポップが同居する代表曲"},
+  {t:"ROCKET DIVE",n:"疾走感あふれるポジティブなロックナンバー"},
+  {t:"DICE",n:"トリッキーなリフワークが光る"}
+ ],
+ beg:{t:"ROCKET DIVE(リフ)",n:"パワーコード主体の疾走リフで、ダウンピッキングの体力づくりに最適でございます。"},
+ sim:["evh","morello","miyavi"],
+ inflFrom:"KISS、ハードロック/メタル全般",
+ inflTo:"ヴィジュアル系以降の日本のギタリスト全般"
+}
+);
+
+/* ==== 追加17名 ==== */
+G.push(
+{
+ id:"prince", nm:"プリンス", en:"Prince",
+ years:"1958–2016", country:"米", era:["80s"], genre:["Funk","Pop","Rock"],
+ ac:"#9d4edd",
+ catch:"歌って踊って弾き倒す、ミネアポリスの紫の雷。",
+ hito:"紫のファンク超人", tech:["カッティング","ファンク","チョーキング"], lv:2,
+ prof:"世界的ポップスターとして知られますが、実はギターの超人でもございます。切れ味鋭いファンクカッティングからヘンドリックス直系の泣きのソロまで自在で、2004年ロックの殿堂での「While My Guitar Gently Weeps」のソロは伝説として語り継がれております。",
+ dnaTags:["ファンクカッティング","歌いながらの超絶ソロ","マルチプレイヤー","圧巻のショーマンシップ"],
+ gear:{g:"Hohner Madcat(テレキャスター系)、Cloud Guitar",a:"多彩(スタジオワーク主体)",s:"タイトなファンクのクリーンから、燃え上がる歪みのソロまで自在。"},
+ songs:[
+  {t:"Purple Rain",n:"ソロは映画とともに歴史に残る名演"},
+  {t:"Kiss",n:"引き算のファンク。カッティングの粋"},
+  {t:"When Doves Cry",n:"イントロのギターから始まる大ヒット"}
+ ],
+ beg:{t:"Kiss(カッティング)",n:"音数の少ないファンクの「間」を体験できる、リズム練習の好教材でございます。"},
+ sim:["hendrix","nile"],
+ inflFrom:"ジミ・ヘンドリックス、ジェームス・ブラウン、サンタナ",
+ inflTo:"現代のファンク/R&B系ギタリスト全般"
+},
+{
+ id:"edge", nm:"ジ・エッジ", en:"The Edge (U2)",
+ years:"1961–", country:"愛", era:["80s"], genre:["Rock"],
+ ac:"#38b6c9",
+ catch:"ディレイの海で鳴る、大聖堂のようなギター。",
+ hito:"空間そのものを弾く", tech:["空間系","アルペジオ","リフ"], lv:2,
+ prof:"U2のギタリスト。付点8分のディレイを奏法の核に据え、少ない音数を反響で織り上げて壮大な音景を作る様式を確立しました。「速く弾く」のではなく「空間を設計する」ギタリストの代表格でございます。",
+ dnaTags:["付点8分ディレイ","ミニマルなアルペジオ","テクスチャの建築","エフェクトを楽器に"],
+ gear:{g:"Gibson Explorer、Fender Stratocaster",a:"Vox AC30",s:"ディレイ(Memory Man等)を幾重にも重ねた透明で壮大な音像。"},
+ songs:[
+  {t:"Where the Streets Have No Name",n:"ディレイアルペジオの金字塔的イントロ"},
+  {t:"With or Without You",n:"ロングトーンと反復の美学"},
+  {t:"Sunday Bloody Sunday",n:"鋭いリフと行進するリズム"}
+ ],
+ beg:{t:"With or Without You",n:"4つのコードとシンプルなアルペジオで曲になる、バンド初心者の定番でございます。"},
+ sim:["gilmour","morello"],
+ inflFrom:"パンク/ポストパンクの精神、ロリー・ギャラガー",
+ inflTo:"空間系エフェクトを活かすバンドギタリスト全般"
+},
+{
+ id:"noel", nm:"ノエル・ギャラガー", en:"Noel Gallagher (Oasis)",
+ years:"1967–", country:"英", era:["90s"], genre:["Rock"],
+ ac:"#8c9a3f",
+ catch:"国民的シンガロングを量産した、労働者階級の兄貴。",
+ hito:"シンガロング製造機", tech:["リフ","アルペジオ"], lv:1,
+ prof:"オアシスの作曲家兼リードギタリスト。ビートルズ直系のメロディと分厚いコードストロークで、誰もが歌える曲を量産しました。2025年のオアシス再結成ツアーは世界的な話題となりました。",
+ dnaTags:["シンガロングの職人","コードワーク主体","ビートルズ直系のメロディ","アンセム量産"],
+ gear:{g:"Epiphone/Gibsonのセミアコ、Les Paul等",a:"Marshall、Vox",s:"分厚く歪んだコードストロークの壁。"},
+ songs:[
+  {t:"Wonderwall",n:"世界中の路上で弾かれ続けるアコギの定番"},
+  {t:"Don't Look Back in Anger",n:"ノエル自身が歌う国民的アンセム"},
+  {t:"Live Forever",n:"90年代UKロックを象徴する一曲"}
+ ],
+ beg:{t:"Wonderwall(コードストローク)",n:"カポ2の定番コード進行。アコギ入門者の世界共通課題曲でございます。"},
+ sim:["harrison","richards"],
+ inflFrom:"ビートルズ、ザ・スミス(ジョニー・マー)、ストーン・ローゼズ",
+ inflTo:"90年代以降のUKロック、弾き語り世代"
+},
+{
+ id:"hetfield", nm:"ジェイムズ・ヘットフィールド", en:"James Hetfield (Metallica)",
+ years:"1963–", country:"米", era:["80s","90s"], genre:["Metal"],
+ ac:"#9aa0a8",
+ catch:"鋼のダウンピッキング。メタルリフの権化。",
+ hito:"鋼の刻み", tech:["リフ","速弾き"], lv:2,
+ prof:"メタリカのフロントマンにしてリズムギターの鬼。高速のダウンピッキングによる「刻み」の正確さと切れは、メタルのリズムギターにおけるひとつの到達点とされております。歌いながらこれをやるのが恐ろしいところでございます。",
+ dnaTags:["鬼のダウンピッキング","ザクザクの刻み","リフの職人","歌いながらの正確無比"],
+ gear:{g:"ESP シグネチャー(Explorer系ほか)",a:"Mesa/Boogie",s:"ミッドを削ったザクザクの刻みサウンド。"},
+ songs:[
+  {t:"Enter Sandman",n:"メタルを世界の主流に押し上げたリフ"},
+  {t:"Master of Puppets",n:"ダウンピッキングの限界に挑む名刺代わり"},
+  {t:"Nothing Else Matters",n:"開放弦アルペジオの美しいバラード"}
+ ],
+ beg:{t:"Nothing Else Matters(イントロ)",n:"開放弦のアルペジオから始められる、メタル入門の定番でございます。"},
+ sim:["iommi","angus"],
+ inflFrom:"ブラック・サバス、モーターヘッド、NWOBHM勢",
+ inflTo:"スラッシュメタル以降のリズムギター全般"
+},
+{
+ id:"iommi", nm:"トニー・アイオミ", en:"Tony Iommi (Black Sabbath)",
+ years:"1948–", country:"英", era:["70s"], genre:["Metal","Hard Rock"],
+ ac:"#52246b",
+ catch:"指先の事故が生んだ、ヘヴィメタルの原風景。",
+ hito:"ヘヴィネスの原点", tech:["リフ"], lv:1,
+ prof:"ブラック・サバスのギタリスト。工場事故で右手の指先を失いながら、軽いゲージとダウンチューニングで弾きやすさを追求した結果、あの暗く重いサウンドに辿り着いたと語られております。ヘヴィメタルの原型を作った立役者でございます。",
+ dnaTags:["ダウンチューニングの先駆","トライトーンの響き","ヘヴィリフの原型","逆境から生まれた音"],
+ gear:{g:"Gibson SG(左利き用)",a:"Laney",s:"ダークで重心の低い歪み。指先の義指も音の個性の一部。"},
+ songs:[
+  {t:"Iron Man",n:"誰もが口ずさめるヘヴィリフの代表"},
+  {t:"Paranoid",n:"疾走するメタルの原点的ナンバー"},
+  {t:"Black Sabbath",n:"トライトーンが不穏に響く、ジャンル誕生の瞬間"}
+ ],
+ beg:{t:"Iron Man(リフ)",n:"ゆっくりでも様になるヘヴィリフ。パワーコードの移動練習に最適でございます。"},
+ sim:["hetfield","page"],
+ inflFrom:"ブルース、ジャンゴ・ラインハルト(指のハンデを乗り越えた先人として)",
+ inflTo:"ヘヴィメタル全般"
+},
+{
+ id:"perry", nm:"ジョー・ペリー", en:"Joe Perry (Aerosmith)",
+ years:"1950–", country:"米", era:["70s"], genre:["Hard Rock","Rock"],
+ ac:"#a83a3a",
+ catch:"トキシック・ツインの相棒。腰で弾くロックンロール。",
+ hito:"腰で弾くロック", tech:["リフ","スライド","ファンク"], lv:2,
+ prof:"エアロスミスのリードギタリスト。ファンキーに跳ねるリフと危険な色気のスライドで、アメリカンハードロックの型を作った一人でございます。Run-D.M.C.との「Walk This Way」共演は、ロックとヒップホップの歴史的な架け橋となりました。",
+ dnaTags:["ファンキーなロックリフ","スライド&トーキングモジュレーター","腰で弾くグルーヴ","ロックとヒップホップの架け橋"],
+ gear:{g:"Les Paul、Stratocaster ほか多数",a:"Marshall系",s:"荒々しくも跳ねる、色気のあるクランチ。"},
+ songs:[
+  {t:"Walk This Way",n:"ファンクとロックが出会った歴史的リフ"},
+  {t:"Sweet Emotion",n:"トーキングモジュレーターも印象的な代表曲"},
+  {t:"Dream On",n:"バラードを締める哀愁のソロ"}
+ ],
+ beg:{t:"Walk This Way(リフ)",n:"16分の跳ねを体に入れる、ロックリフ練習の好教材でございます。"},
+ sim:["richards","slash"],
+ inflFrom:"チャック・ベリー、ジェフ・ベック、フリートウッド・マック(ピーター・グリーン期)",
+ inflTo:"スラッシュはじめ80年代ハードロック勢"
+},
+{
+ id:"frehley", nm:"エース・フレーリー", en:"Ace Frehley (KISS)",
+ years:"1951–2025", country:"米", era:["70s"], genre:["Hard Rock"],
+ ac:"#8fa3b8",
+ catch:"宇宙から来たスペースマン。煙を吐くレスポール。",
+ hito:"煙を吐くレスポール", tech:["チョーキング","リフ"], lv:1,
+ prof:"KISSのオリジナルリードギタリスト「スペースマン」。口ずさめるシンプルなソロと、煙や光を放つ仕掛けレスポールのショーマンシップで、世界中の少年少女にギターを持たせました。2025年10月に惜しまれつつ他界。トム・モレロが「最初のギターヒーロー」と追悼したことでも知られます。",
+ dnaTags:["歌えるロックソロ","スモーキング・レスポール","ショーマンシップ","ペンタの王道"],
+ gear:{g:"Gibson Les Paul(発煙・発光などの改造機)",a:"Marshall",s:"太く歌うレスポールトーン。仕掛けも音楽の一部。"},
+ songs:[
+  {t:"Detroit Rock City",n:"ツインリードのハモリが印象的な代表曲"},
+  {t:"Shock Me",n:"初のリードボーカル曲。ソロも聴きどころ"},
+  {t:"Rock and Roll All Nite",n:"バンドの代名詞的アンセム"}
+ ],
+ beg:{t:"Cold Gin(リフ)",n:"シンプルで骨太なリフ。コードチェンジの練習にそのまま使えます。"},
+ sim:["slash","angus"],
+ inflFrom:"ジミー・ペイジ、ジミ・ヘンドリックス",
+ inflTo:"トム・モレロ、スラッシュはじめ80年代以降のロック勢"
+},
+{
+ id:"duane", nm:"デュアン・オールマン", en:"Duane Allman",
+ years:"1946–1971", country:"米", era:["70s"], genre:["Blues","Rock"],
+ ac:"#cf8a3a",
+ catch:"蜂蜜のように滑るスライド。サザンロックの魂。",
+ hito:"蜂蜜のスライド", tech:["スライド"], lv:3,
+ prof:"オールマン・ブラザーズ・バンドの創設者にして、スライドギターの代名詞的存在。クラプトンの「Layla」への客演でも知られます。ツインリードのハーモニーと長尺の即興でサザンロックの礎を築き、24歳の若さで事故に斃れました。",
+ dnaTags:["スライドギターの金字塔","ツインリードハーモニー","ジャム&即興","サザンロックの礎"],
+ gear:{g:"Gibson Les Paul、SG(スライド用・オープンEチューニング)",a:"Marshall",s:"ガラス瓶のスライドが歌う、甘く伸びるトーン。"},
+ songs:[
+  {t:"Statesboro Blues",n:"スライドギターの教科書と呼ばれる名演"},
+  {t:"Whipping Post",n:"長尺の即興が燃え上がるライブの定番"},
+  {t:"Layla",n:"クラプトン作品への客演。あのスライドは彼の音"}
+ ],
+ beg:{t:"オープンEのスライド基礎",n:"チューニングをオープンEに変え、1本指のスライドでStatesboro Bluesの冒頭をなぞるところから始められます。"},
+ sim:["clapton","bbking"],
+ inflFrom:"ブルースのスライド奏者たち(エルモア・ジェイムス等)",
+ inflTo:"サザンロック、スライド奏者全般"
+},
+{
+ id:"lespaul", nm:"レス・ポール", en:"Les Paul",
+ years:"1915–2009", country:"米", era:["50s"], genre:["Jazz","Pop"],
+ ac:"#b5893a",
+ catch:"その名はギターになった。音楽と録音技術の革新者。",
+ hito:"ギターになった名前", tech:["速弾き"], lv:3,
+ prof:"ジャズ/ポップのギタリストにして技術者。ソリッドボディギターの発展と多重録音技術の開発に大きく貢献し、その名はギブソン・レスポールとして今も世界中で弾かれております。速く滑らかなフレーズは後のロック世代にも影響を与えました。",
+ dnaTags:["レスポールの名の由来","多重録音の先駆","ジャズ由来の滑らかなフレーズ","技術と音楽の融合"],
+ gear:{g:"Gibson Les Paul(その原点)",a:"自作・改造の録音機材とともに",s:"艶やかで速いジャズ系フレーズを、多重録音の魔法で重ねる。"},
+ songs:[
+  {t:"How High the Moon",n:"メリー・フォードとの多重録音ヒット"},
+  {t:"Vaya Con Dios",n:"夫婦デュオの代表曲"},
+  {t:"Lover",n:"多重録音による超高速フレーズの実験"}
+ ],
+ beg:{t:"How High the Moon(メロディをゆっくり)",n:"ジャズの香りのするメロディを単音でなぞる練習になります。"},
+ sim:["beck","chuck"],
+ inflFrom:"ジャンゴ・ラインハルト",
+ inflTo:"ジェフ・ベックはじめ後進多数。録音技術の面でも音楽界全体へ"
+},
+{
+ id:"vai", nm:"スティーヴ・ヴァイ", en:"Steve Vai",
+ years:"1960–", country:"米", era:["80s","90s"], genre:["Rock","Metal"],
+ ac:"#4bd160",
+ catch:"ザッパ門下の異次元。ギターで異言語を話す男。",
+ hito:"異次元の表現者", tech:["速弾き","タッピング","ビブラート"], lv:4,
+ prof:"フランク・ザッパの採譜係から頭角を現した超絶技巧の代名詞。7弦ギターの普及、複雑なハーモニー、人間離れした表現力で「ギターにできること」の地図を広げました。師はジョー・サトリアーニでございます。",
+ dnaTags:["超絶技巧の代名詞","7弦ギターの普及","ハーモニーの魔術","ザッパ仕込みの読譜力"],
+ gear:{g:"Ibanez JEM / Universe(7弦)",a:"Carvin/Synergy系",s:"表情豊かなリードトーン。アームとワウは声帯の延長。"},
+ songs:[
+  {t:"For the Love of God",n:"技巧を超えて「祈り」に達した代表インスト"},
+  {t:"Tender Surrender",n:"繊細さと爆発力が同居する名曲"},
+  {t:"Bad Horsie",n:"ワウが唸る暴れ馬インスト"}
+ ],
+ beg:{t:"For the Love of God(冒頭をスローで)",n:"ゆっくりなぞるだけでビブラートの深さを学べる題材でございます。"},
+ sim:["satriani","evh"],
+ inflFrom:"ジョー・サトリアーニ(師)、フランク・ザッパ、ジミ・ヘンドリックス",
+ inflTo:"テクニカル系ギタリスト全般"
+},
+{
+ id:"satriani", nm:"ジョー・サトリアーニ", en:"Joe Satriani",
+ years:"1956–", country:"米", era:["80s","90s"], genre:["Rock"],
+ ac:"#7a7ad1",
+ catch:"宇宙を滑空するインストロック。名教師にして名手。",
+ hito:"滑空するレガート", tech:["速弾き","ビブラート"], lv:3,
+ prof:"インストゥルメンタルロックの看板的存在。滑らかなレガートと歌えるメロディで、「歌のないロック」を広く聴かせることに成功しました。スティーヴ・ヴァイやメタリカのカーク・ハメットを教えた名教師としても知られ、G3ツアーの主宰者でもございます。",
+ dnaTags:["インストロックの看板","レガートの滑らかさ","名教師(ヴァイ、ハメット門下)","メロディ最優先"],
+ gear:{g:"Ibanez JSシリーズ",a:"Marshall、Peavey JSX等",s:"どこまでも滑らかに歌うリードトーン。"},
+ songs:[
+  {t:"Surfing with the Alien",n:"インストロックを世に知らしめた代表作"},
+  {t:"Always with Me, Always with You",n:"美メロインストの定番教材"},
+  {t:"Satch Boogie",n:"遊び心と技巧が同居するブギ"}
+ ],
+ beg:{t:"Always with Me, Always with You(テーマ)",n:"レガートとビブラートの練習曲として世界中で弾かれております。"},
+ sim:["vai","gilmour"],
+ inflFrom:"ジミ・ヘンドリックス、ジェフ・ベック",
+ inflTo:"教え子たちを含むテクニカル系全般"
+},
+{
+ id:"randy", nm:"ランディ・ローズ", en:"Randy Rhoads",
+ years:"1956–1982", country:"米", era:["80s"], genre:["Metal","Hard Rock"],
+ ac:"#a83a9e",
+ catch:"クラシックの理性とメタルの衝動。夭折の貴公子。",
+ hito:"クラシカルな閃光", tech:["速弾き","リフ","アルペジオ"], lv:2,
+ prof:"オジー・オズボーンのバンドで一躍名を馳せたギタリスト。クラシックギターの素養をメタルのソロ構築に持ち込み、緻密に設計された美しいソロで新しい様式を示しました。25歳、航空機事故により夭折。",
+ dnaTags:["クラシカルなソロ構築","緻密に設計されたソロ","ポルカドットのフライングV","夭折の伝説"],
+ gear:{g:"Gibson Les Paul Custom、ポルカドット柄のFlying V",a:"Marshall",s:"ダブルトラッキングで重ねた、艶と芯のある歪み。"},
+ songs:[
+  {t:"Crazy Train",n:"リフもソロも永遠の定番"},
+  {t:"Mr. Crowley",n:"クラシカルなソロ構築の金字塔"},
+  {t:"Flying High Again",n:"歌心あるタッピングも聴きどころ"}
+ ],
+ beg:{t:"Crazy Train(リフ)",n:"メタル入門の大定番リフ。左手の運指練習に最適でございます。"},
+ sim:["blackmore","yngwie"],
+ inflFrom:"リッチー・ブラックモア、クラシックギター",
+ inflTo:"80年代以降のメタルソロの構築美"
+},
+{
+ id:"edsheeran", nm:"エド・シーラン", en:"Ed Sheeran",
+ years:"1991–", country:"英", era:["10s〜"], genre:["Pop"],
+ ac:"#e8823a",
+ catch:"アコギ一本とルーパーで、スタジアムを満員にする男。",
+ hito:"一人バンドの申し子", tech:["指弾き","アルペジオ"], lv:1,
+ prof:"足元のループステーションでリズム・コード・コーラスを重ね、アコースティックギター1本で巨大会場を沸かせる現代の弾き語りの象徴。ボディを叩くパーカッシブな奏法と、小ぶりなギターのコードワークが持ち味でございます。",
+ dnaTags:["ルーパーの申し子","パーカッシブアコギ","弾き語りの現在形","小ぶりなギター"],
+ gear:{g:"Martin(小型ボディのシグネチャー)",a:"ルーパー(カスタム機「Chewie」等)+PA直",s:"アコギの生音とボディヒットを重ねて作る、一人バンドサウンド。"},
+ songs:[
+  {t:"Shape of You",n:"世界的ヒット。ライブではループで組み立てる"},
+  {t:"Perfect",n:"結婚式の定番となったバラード"},
+  {t:"Thinking Out Loud",n:"グルーヴィーな弾き語りの代表曲"}
+ ],
+ beg:{t:"Perfect(コードストローク)",n:"ゆったりした定番進行で、アコギの弾き語り入門にうってつけでございます。"},
+ sim:["mayer","noel"],
+ inflFrom:"エリック・クラプトン(ギターを始めるきっかけと公言)、デミアン・ライス",
+ inflTo:"ルーパー/弾き語り世代全般"
+},
+{
+ id:"setzer", nm:"ブライアン・セッツァー", en:"Brian Setzer",
+ years:"1959–", country:"米", era:["80s"], genre:["Rock'n'Roll","Jazz"],
+ ac:"#d1541f",
+ catch:"グレッチを抱えたロカビリーの伝道師。",
+ hito:"ロカビリーの伊達男", tech:["リフ"], lv:2,
+ prof:"ストレイ・キャッツで1980年代にロカビリーを蘇らせ、後にビッグバンドを従えたブライアン・セッツァー・オーケストラでスウィングと融合。ジャズのコードワークとロックンロールの衝動を両立させる、日本でも人気の高い伊達男でございます。",
+ dnaTags:["ロカビリーリバイバル","グレッチ+エコー","ジャズコードを操る","ビッグバンドとの融合"],
+ gear:{g:"Gretsch 6120",a:"Fender Bassman + Roland Space Echo",s:"スラップバックエコーの効いた、跳ねるクランチ。"},
+ songs:[
+  {t:"Rock This Town",n:"ロカビリーリバイバルの狼煙"},
+  {t:"Stray Cat Strut",n:"ジャジーなコードとソロが粋な代表曲"},
+  {t:"Jump Jive an' Wail",n:"ビッグバンド期の大ヒットカバー"}
+ ],
+ beg:{t:"Rock This Town(リフ)",n:"シャッフルのノリとブリッジミュートを一度に学べる好教材でございます。"},
+ sim:["chuck","lespaul"],
+ inflFrom:"エディ・コクラン、クリフ・ギャラップ、チェット・アトキンス",
+ inflTo:"ネオロカビリー全般"
+},
+{
+ id:"greenwood", nm:"ジョニー・グリーンウッド", en:"Jonny Greenwood (Radiohead)",
+ years:"1971–", country:"英", era:["90s","00s"], genre:["Alternative","Rock"],
+ ac:"#444f8c",
+ catch:"轟音と静謐のあいだ。レディオヘッドの実験室。",
+ hito:"轟音と静謐の実験", tech:["アルペジオ","空間系","リフ"], lv:1,
+ prof:"レディオヘッドのギタリスト。「Creep」の例の「ガガッ」というノイズから、現代音楽やオンド・マルトノまで越境する実験精神の人でございます。映画音楽の作曲家としても高く評価され、ギターを「多くの音源のひとつ」として扱う視点が独特でございます。",
+ dnaTags:["ノイズと美メロの往復","変則的なリズム&運指","現代音楽への越境","エフェクトの実験"],
+ gear:{g:"Fender Telecaster Plus",a:"Vox AC30",s:"轟音ファズから繊細なアルペジオまで、曲が求める音だけを出す。"},
+ songs:[
+  {t:"Creep",n:"サビ前の「ガガッ」は音楽史に残るノイズ"},
+  {t:"Paranoid Android",n:"数曲分の展開を詰め込んだ組曲的名曲"},
+  {t:"There There",n:"トレモロが波打つ呪術的ナンバー"}
+ ],
+ beg:{t:"Creep(コードストローク)",n:"4つのコードの循環で、例の「ガガッ」も含めて楽しく練習できます。"},
+ sim:["edge","cobain"],
+ inflFrom:"現代音楽(ペンデレツキ、メシアン)、ポストパンク",
+ inflTo:"実験的ロックのギタリスト全般"
+},
+{
+ id:"takanaka", nm:"高中正義", en:"Masayoshi Takanaka",
+ years:"1953–", country:"日", era:["70s","80s"], genre:["Fusion"],
+ ac:"#8fc93a",
+ catch:"夏を鳴らすギター。日本フュージョンの太陽。",
+ hito:"夏を鳴らすメロディ", tech:["チョーキング","ビブラート","カッティング"], lv:3,
+ prof:"サディスティック・ミカ・バンドを経てソロへ。「BLUE LAGOON」に代表される、歌うようなメロディのインストで日本のフュージョンブームを牽引した立役者でございます。トロピカルで明るいトーンは、聴くだけで夏が来ます。",
+ dnaTags:["歌えるインストメロディ","トロピカルなトーン","日本フュージョンの立役者","ヤマハSG"],
+ gear:{g:"Yamaha SG",a:"クリーン〜クランチ+空間系",s:"明るく伸びやかな、南国の日差しのようなリードトーン。"},
+ songs:[
+  {t:"BLUE LAGOON",n:"日本インスト史に残る夏の定番"},
+  {t:"渚・モデラート",n:"軽快なカッティングも光る人気曲"},
+  {t:"憧れのセーシェル諸島",n:"トロピカル路線の代表格"}
+ ],
+ beg:{t:"BLUE LAGOON(冒頭テーマ)",n:"歌うようなメロディを丁寧に弾く練習として、日本中の教室で愛される定番でございます。"},
+ sim:["santana","gilmour"],
+ inflFrom:"サンタナ、ベンチャーズ",
+ inflTo:"日本のインスト/フュージョン系ギタリスト"
+},
+{
+ id:"miyavi", nm:"MIYAVI", en:"MIYAVI",
+ years:"1981–", country:"日", era:["00s","10s〜"], genre:["J-Rock","Rock"],
+ ac:"#5470d6",
+ catch:"ピックを捨てたサムライ・ギタリスト。スラップで世界へ。",
+ hito:"スラップの侍", tech:["スラップ","カッティング"], lv:3,
+ prof:"ヴィジュアル系シーン出身。ピックを使わず、ベースのスラップのように弦を叩き弾く独自の奏法を確立し、「サムライ・ギタリスト」として世界ツアーを重ねております。俳優としても国際的に活動する異色の存在でございます。",
+ dnaTags:["スラップ奏法","ピックレス","世界ツアーの実績","ヴィジュアル系から独自進化"],
+ gear:{g:"Fender Telecaster(シグネチャーモデル)",a:"タイトな歪み+リズミカルなエフェクト",s:"叩く・弾く・ミュートが一体になったパーカッシブなサウンド。"},
+ songs:[
+  {t:"What's My Name?",n:"スラップ奏法が炸裂する代表曲"},
+  {t:"Firebird",n:"疾走するビートと切れ味のギター"},
+  {t:"Long Nights",n:"歌ものでの表現力も光る一曲"}
+ ],
+ beg:{t:"ブラッシング+スラップの基礎",n:"右手親指で弦を叩く感覚から。単音+ブラッシングの反復でMIYAVI流の骨格に触れられます。"},
+ sim:["morello","hotei"],
+ inflFrom:"hide(敬愛を公言)、スラップベースの奏法",
+ inflTo:"動画世代の奏法系ギタリスト"
+}
+);
+
+
+/* ==== 追加2名 ==== */
+G.push(
+{
+ id:"schenker", nm:"マイケル・シェンカー", en:"Michael Schenker",
+ years:"1955–", country:"独", era:["70s","80s"], genre:["Hard Rock","Metal"],
+ ac:"#5c5c66",
+ catch:"白黒のフライングVが泣く。日本で「神」と呼ばれた男。",
+ hito:"泣きのフライングV", tech:["チョーキング","速弾き","リフ"], lv:2,
+ prof:"UFO、MSGで活躍したドイツ出身のギタリスト。半分だけ踏み込んだワウから生まれる独特のミッドの効いたトーンと、旋律美あふれる「泣き」のソロで、日本では敬意を込めて「神」と呼ばれるほど熱く支持されてまいりました。兄はスコーピオンズのルドルフ・シェンカーでございます。",
+ dnaTags:["泣きのソロ構築","半止めワウのトーン","白黒フライングV","旋律美のハードロック"],
+ gear:{g:"Gibson/Dean Flying V(白黒ツートン)",a:"Marshall",s:"半止めワウを通した、鼻にかかるようなミッドの泣きトーン。"},
+ songs:[
+  {t:"Doctor Doctor (UFO)",n:"アイアン・メイデンが開演前に流すことでも有名な名曲"},
+  {t:"Rock Bottom (UFO)",n:"長尺ソロはハードロック史に残る聴きどころ"},
+  {t:"Into the Arena (MSG)",n:"インストの代表曲。構築美の見本"}
+ ],
+ beg:{t:"Doctor Doctor(リフ)",n:"歌心あるリフをゆっくり丁寧に。泣きのフレーズの入り口として最適でございます。"},
+ sim:["blackmore","randy"],
+ inflFrom:"兄ルドルフ・シェンカー、英国ハードロック",
+ inflTo:"カーク・ハメット、松本孝弘はじめメタル系ソロ全般"
+},
+{
+ id:"lenny", nm:"レニー・クラヴィッツ", en:"Lenny Kravitz",
+ years:"1964–", country:"米", era:["90s"], genre:["Rock","Funk"],
+ ac:"#a0764a",
+ catch:"70年代の魂を現代に鳴らす、レトロロックの色男。",
+ hito:"レトロ&ファンクの色男", tech:["リフ","ファンク"], lv:2,
+ prof:"ヘンドリックス、レッド・ツェッペリン、ソウルへの愛をヴィンテージ機材ごと現代に蘇らせたマルチプレイヤー。骨太のリフとファンクのグルーヴを併せ持ち、白いフライングVを抱えた姿はロックのアイコンでございます。",
+ dnaTags:["ヴィンテージ機材愛","骨太のリフ","ファンク&ソウルの腰","マルチプレイヤー"],
+ gear:{g:"Gibson Flying V(白)、Les Paul",a:"ヴィンテージMarshall/Fender系",s:"70年代そのままの太く乾いたロックトーン。"},
+ songs:[
+  {t:"Are You Gonna Go My Way",n:"90年代を代表するギターリフのひとつ"},
+  {t:"Fly Away",n:"シンプルなコードリフで世界的ヒット"},
+  {t:"Always on the Run",n:"スラッシュとの共作。ソロもスラッシュの演奏"}
+ ],
+ beg:{t:"Fly Away(リフ)",n:"コード4つのシンプルなリフ。音を切るキレの練習にうってつけでございます。"},
+ sim:["prince","slash"],
+ inflFrom:"ジミ・ヘンドリックス、プリンス、レッド・ツェッペリン",
+ inflTo:"レトロ志向のロック/ソウル系全般"
+}
+);
+
+
+/* ==== 追加: 春畑道哉 ==== */
+G.push(
+{
+ id:"haruhata", nm:"春畑道哉", en:"Michiya Haruhata (TUBE)",
+ years:"1966–", country:"日", era:["80s","90s"], genre:["J-Rock","Pop"],
+ ac:"#00a8a0",
+ catch:"夏の歌謡とJリーグ——日本の景色を弾くギター。",
+ hito:"Jリーグを鳴らした男", tech:["チョーキング","ビブラート","速弾き"], lv:3,
+ prof:"TUBEのギタリストにして、Jリーグ公式テーマ「J'S THEME」の作曲・演奏者。1993年の開幕セレモニーで初披露して以来、30年にわたり日本のサッカーの景色とともに鳴り続けております。2002年には日本人ギタリストとして初めてフェンダーのシグネチャーモデルを発売。歌謡ポップスの中で泣きのメロディを歌わせる名手でございます。",
+ dnaTags:["泣きのハイトーンメロディ","ヴォリューム奏法","アーミングの表情付け","歌謡ポップスの中のギター"],
+ gear:{g:"Fender「MICHIYA HARUHATA STRATOCASTER」(日本人初のシグネチャー)",a:"Hughes & Kettner、近年はDivided by 13",s:"伸びやかで艶のあるリードトーン。エレガットの繊細な音色も武器。"},
+ songs:[
+  {t:"J'S THEME(Jのテーマ)",n:"1993年Jリーグ開幕から鳴り続ける公式テーマ。スタジアムの記憶そのもの"},
+  {t:"シーズン・イン・ザ・サン (TUBE)",n:"日本の夏の定番。歌に寄り添うギターの見本"},
+  {t:"SPEED STAR",n:"ソロ活動での高難度テクニカルナンバー"}
+ ],
+ beg:{t:"J'S THEME(冒頭テーマ)",n:"よく知られたメロディを、チョーキングの音程とビブラートに気を配りながら丁寧に歌わせる練習になります。"},
+ sim:["takanaka","matsumoto"],
+ inflFrom:"ハードロック、フュージョン",
+ inflTo:"J-POPにおけるギターインストの立ち位置"
+}
+);
+
+/* ============ SILHOUETTES (original SVG illustrations) ============ */
+const INK="#2b241b";
+function baseGuitar(ac,extra){
+  return `<line x1="34" y1="108" x2="93" y2="67" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
+  <rect x="90" y="60" width="9" height="12" rx="2" fill="${INK}" transform="rotate(-35 94 66)"/>
+  <circle cx="42" cy="103" r="13" fill="${ac}" stroke="${INK}" stroke-width="2.5"/>
+  <circle cx="52" cy="96" r="10.5" fill="${ac}" stroke="${INK}" stroke-width="2.5"/>
+  <circle cx="47" cy="99" r="3.2" fill="${INK}"/>${extra||""}`;
+}
+function lpGuitar(ac){
+  return `<line x1="36" y1="106" x2="93" y2="67" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
+  <rect x="90" y="60" width="9" height="12" rx="2" fill="${INK}" transform="rotate(-35 94 66)"/>
+  <ellipse cx="43" cy="101" rx="14" ry="15" fill="${ac}" stroke="${INK}" stroke-width="2.5"/>
+  <circle cx="55" cy="90" r="5" fill="${ac}" stroke="${INK}" stroke-width="2.5"/>
+  <circle cx="46" cy="98" r="3.2" fill="${INK}"/>`;
+}
+function semiGuitar(ac){
+  return `<line x1="34" y1="106" x2="93" y2="67" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
+  <rect x="90" y="60" width="9" height="12" rx="2" fill="${INK}" transform="rotate(-35 94 66)"/>
+  <ellipse cx="42" cy="101" rx="16" ry="14.5" fill="${ac}" stroke="${INK}" stroke-width="2.5"/>
+  <path d="M35 96 q-3 5 0 10 M49 92 q3 5 0 10" stroke="${INK}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+}
+function teleGuitar(ac,extra){
+  return `<line x1="36" y1="106" x2="93" y2="67" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
+  <rect x="90" y="60" width="9" height="12" rx="2" fill="${INK}" transform="rotate(-35 94 66)"/>
+  <rect x="29" y="89" width="27" height="25" rx="11" fill="${ac}" stroke="${INK}" stroke-width="2.5" transform="rotate(-20 42 101)"/>
+  <circle cx="46" cy="99" r="3" fill="${INK}"/>${extra||""}`;
+}
+function sgGuitar(ac){
+  return `<line x1="38" y1="104" x2="93" y2="67" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
+  <rect x="90" y="60" width="9" height="12" rx="2" fill="${INK}" transform="rotate(-35 94 66)"/>
+  <path d="M33 92 L26 81 L38 89 Z" fill="${ac}" stroke="${INK}" stroke-width="2"/>
+  <path d="M51 88 L54 77 L58 89 Z" fill="${ac}" stroke="${INK}" stroke-width="2"/>
+  <ellipse cx="42" cy="102" rx="13" ry="12" fill="${ac}" stroke="${INK}" stroke-width="2.5"/>
+  <circle cx="45" cy="98" r="3" fill="${INK}"/>`;
+}
+function explGuitar(ac){
+  return `<line x1="38" y1="104" x2="93" y2="67" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
+  <rect x="90" y="60" width="9" height="12" rx="2" fill="${INK}" transform="rotate(-35 94 66)"/>
+  <path d="M28 96 L46 84 L58 92 L52 102 L58 112 L36 116 Z" fill="${ac}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="45" cy="99" r="3" fill="${INK}"/>`;
+}
+function vGuitar(ac,extra){
+  return `<line x1="40" y1="102" x2="93" y2="67" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
+  <rect x="90" y="60" width="9" height="12" rx="2" fill="${INK}" transform="rotate(-35 94 66)"/>
+  <path d="M50 86 L26 104 L42 116 Z" fill="${ac}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>${extra||""}`;
+}
+function acGuitar(ac){
+  return `<line x1="40" y1="100" x2="92" y2="70" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
+  <rect x="89" y="63" width="9" height="12" rx="2" fill="${INK}" transform="rotate(-32 93 69)"/>
+  <circle cx="44" cy="102" r="14.5" fill="${ac}" stroke="${INK}" stroke-width="2.5"/>
+  <circle cx="49" cy="98" r="4.5" fill="${INK}"/>`;
+}
+function torso(w){
+  const d=w||0;
+  return `<path d="M60 52 C${47-d} 52 ${40-d} 63 ${38-d} 80 L${36-d} 124 Q${36-d} 134 60 134 Q${84+d} 134 ${84+d} 124 L${82+d} 80 C${80+d} 63 ${73+d} 52 60 52 Z" fill="${INK}"/>`;
+}
+const HEAD=`<circle cx="60" cy="36" r="13.5" fill="${INK}"/>`;
+const SIL={
+ clapton:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="47" rx="8.5" ry="5" fill="${INK}"/>`+baseGuitar(ac),
+ hendrix:(ac)=>torso()+`<circle cx="60" cy="28" r="17" fill="${INK}"/><circle cx="45" cy="35" r="10" fill="${INK}"/><circle cx="75" cy="35" r="10" fill="${INK}"/>`+HEAD+`<rect x="46" y="32" width="28" height="4.5" rx="2" fill="${ac}"/>`+baseGuitar(ac),
+ srv:(ac)=>torso()+HEAD+`<path d="M48 26 Q48 12 60 12 Q72 12 72 26 Z" fill="${INK}"/><ellipse cx="60" cy="26.5" rx="24" ry="4.5" fill="${INK}"/><rect x="49" y="20" width="22" height="4" fill="${ac}"/>`+baseGuitar(ac),
+ page:(ac)=>torso()+`<ellipse cx="47" cy="48" rx="6.5" ry="15" fill="${INK}"/><ellipse cx="73" cy="48" rx="6.5" ry="15" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="25" rx="13" ry="6" fill="${INK}"/>`+lpGuitar(ac),
+ evh:(ac)=>torso()+`<circle cx="51" cy="28" r="9" fill="${INK}"/><circle cx="69" cy="28" r="9" fill="${INK}"/><circle cx="60" cy="24" r="10" fill="${INK}"/><ellipse cx="46" cy="41" rx="5" ry="9" fill="${INK}"/><ellipse cx="74" cy="41" rx="5" ry="9" fill="${INK}"/>`+HEAD+baseGuitar(ac,
+   `<line x1="33" y1="98" x2="50" y2="110" stroke="#fff" stroke-width="2"/><line x1="38" y1="90" x2="58" y2="103" stroke="#fff" stroke-width="2"/><line x1="46" y1="86" x2="61" y2="96" stroke="#fff" stroke-width="2"/>`),
+ bbking:(ac)=>torso(5)+HEAD+`<path d="M60 56 L51 51 L51 61 Z M60 56 L69 51 L69 61 Z" fill="${ac}"/>`+semiGuitar(ac),
+ chuck:(ac)=>torso()+HEAD+`<ellipse cx="58" cy="23.5" rx="14" ry="7.5" fill="${INK}"/><ellipse cx="70" cy="27" rx="6" ry="5" fill="${INK}"/>`+semiGuitar(ac),
+ gilmour:(ac)=>torso()+HEAD+`<circle cx="42" cy="103" r="21" fill="none" stroke="${ac}" stroke-width="1.6" stroke-dasharray="4 4" opacity=".65"/><circle cx="42" cy="103" r="28" fill="none" stroke="${ac}" stroke-width="1.4" stroke-dasharray="3 6" opacity=".4"/>`+baseGuitar(ac),
+ nile:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="24.5" rx="14.5" ry="6.5" fill="${INK}"/><ellipse cx="66" cy="21" rx="5" ry="4" fill="${INK}"/><circle cx="88" cy="100" r="2.2" fill="${ac}"/><circle cx="96" cy="112" r="1.7" fill="${ac}"/><circle cx="84" cy="120" r="1.5" fill="${ac}"/>`+baseGuitar(ac),
+
+ beck:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="22" rx="8" ry="9" fill="${INK}"/>`+baseGuitar(ac),
+ richards:(ac)=>torso()+`<circle cx="50" cy="26" r="7" fill="${INK}"/><circle cx="70" cy="26" r="7" fill="${INK}"/><circle cx="60" cy="22" r="8" fill="${INK}"/>`+HEAD+`<rect x="47" y="30" width="26" height="4.5" rx="2" fill="${ac}"/>`+teleGuitar(ac),
+ harrison:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="27" rx="15" ry="9" fill="${INK}"/><rect x="47.5" y="33" width="4" height="10" rx="2" fill="${INK}"/><rect x="68.5" y="33" width="4" height="10" rx="2" fill="${INK}"/>`+baseGuitar(ac),
+ santana:(ac)=>torso()+`<ellipse cx="46" cy="42" rx="5" ry="8" fill="${INK}"/><ellipse cx="74" cy="42" rx="5" ry="8" fill="${INK}"/>`+HEAD+`<path d="M50 25 Q50 13 60 13 Q70 13 70 25 Z" fill="${INK}"/><ellipse cx="60" cy="25.5" rx="20" ry="4" fill="${INK}"/><rect x="51" y="20" width="18" height="3.5" fill="${ac}"/>`+lpGuitar(ac),
+ may:(ac)=>torso()+`<circle cx="60" cy="18" r="9" fill="${INK}"/><circle cx="49" cy="26" r="9" fill="${INK}"/><circle cx="71" cy="26" r="9" fill="${INK}"/><ellipse cx="46" cy="40" rx="5" ry="9" fill="${INK}"/><ellipse cx="74" cy="40" rx="5" ry="9" fill="${INK}"/>`+HEAD+lpGuitar(ac),
+ angus:(ac)=>torso()+HEAD+`<ellipse cx="59" cy="23.5" rx="13" ry="5.5" fill="${INK}"/><rect x="65" y="24" width="12" height="3.5" rx="1.5" fill="${INK}"/><path d="M52 58 L60 66 L68 58 L64 56 L60 60 L56 56 Z" fill="${ac}"/>`+sgGuitar(ac),
+ blackmore:(ac)=>torso()+`<rect x="43.5" y="26" width="8" height="40" rx="4" fill="${INK}"/><rect x="68.5" y="26" width="8" height="40" rx="4" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="24" rx="13.5" ry="6" fill="${INK}"/>`+baseGuitar(ac),
+ knopfler:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="24" rx="12.5" ry="6" fill="${INK}"/><rect x="47" y="28.5" width="26" height="4.5" rx="2" fill="${ac}"/>`+baseGuitar(ac),
+ slash:(ac)=>torso()+`<circle cx="47" cy="34" r="7" fill="${INK}"/><circle cx="73" cy="34" r="7" fill="${INK}"/><ellipse cx="45" cy="46" rx="6.5" ry="13" fill="${INK}"/><ellipse cx="75" cy="46" rx="6.5" ry="13" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="26" rx="20" ry="4" fill="${INK}"/><rect x="50" y="5" width="20" height="21" rx="2" fill="${INK}"/><rect x="50" y="18" width="20" height="4" fill="${ac}"/>`+lpGuitar(ac),
+ yngwie:(ac)=>torso()+`<circle cx="60" cy="24" r="15" fill="${INK}"/><ellipse cx="45" cy="41" rx="7" ry="14" fill="${INK}"/><ellipse cx="75" cy="41" rx="7" ry="14" fill="${INK}"/>`+HEAD+baseGuitar(ac),
+ cobain:(ac)=>torso()+`<rect x="45" y="27" width="7" height="19" rx="3.5" fill="${INK}"/><rect x="68" y="27" width="7" height="19" rx="3.5" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="25" rx="14" ry="8" fill="${INK}"/>`+baseGuitar(ac),
+ frusciante:(ac)=>torso()+`<circle cx="52" cy="26" r="9" fill="${INK}"/><circle cx="68" cy="26" r="9" fill="${INK}"/><ellipse cx="47" cy="38" rx="5" ry="10" fill="${INK}"/><ellipse cx="73" cy="38" rx="5" ry="10" fill="${INK}"/>`+HEAD+baseGuitar(ac),
+ morello:(ac)=>torso()+HEAD+`<ellipse cx="59" cy="23.5" rx="13" ry="5.5" fill="${INK}"/><rect x="65" y="24" width="12" height="3.5" rx="1.5" fill="${INK}"/><path d="M72 98 q7 5 0 11 q-7 5 0 11" stroke="${ac}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`+baseGuitar(ac),
+ jackwhite:(ac)=>torso()+`<rect x="45" y="27" width="6.5" height="17" rx="3" fill="${INK}"/><rect x="68.5" y="27" width="6.5" height="17" rx="3" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="24.5" rx="13" ry="7" fill="${INK}"/>`+teleGuitar(ac),
+ mayer:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="23.5" rx="12" ry="6" fill="${INK}"/><circle cx="60" cy="57" r="2.2" fill="${ac}"/>`+baseGuitar(ac),
+ henson:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="22" rx="13" ry="8.5" fill="${ac}"/><rect x="47" y="27" width="26" height="4.5" rx="2" fill="${ac}" stroke="${INK}" stroke-width="1"/>`+teleGuitar(ac,`<circle cx="43" cy="100" r="4.5" fill="${INK}" opacity=".55"/>`),
+ wong:(ac)=>torso()+HEAD+`<ellipse cx="59" cy="22.5" rx="12" ry="6" fill="${INK}"/><rect x="66" y="23" width="14" height="3.5" rx="1.5" fill="${INK}" transform="rotate(8 66 23)"/><path d="M80 90 q5 4 0 9 M86 88 q6 5 0 11 M92 86 q7 6 0 13" stroke="${ac}" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".8"/>`+baseGuitar(ac),
+ hotei:(ac)=>torso()+HEAD+`<rect x="49" y="11" width="22" height="17" rx="3" fill="${INK}"/>`+teleGuitar(ac,
+   `<path d="M31 95 l5 5 -5 5 M39 90 l5 5 -5 5 M47 96 l4 4 -4 4" stroke="#fff" stroke-width="2" fill="none" stroke-linejoin="round"/>`),
+ matsumoto:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="23.5" rx="12.5" ry="6" fill="${INK}"/><rect x="49.5" y="32" width="21" height="5" rx="2.5" fill="${ac}"/>`+lpGuitar(ac),
+ hide:(ac)=>torso()+`<circle cx="60" cy="21" r="13" fill="${ac}"/><circle cx="46" cy="28" r="8" fill="${ac}"/><circle cx="74" cy="28" r="8" fill="${ac}"/><path d="M50 10 L54 20 L46 18 Z M66 8 L70 18 L62 17 Z" fill="${ac}"/>`+HEAD+lpGuitar(ac),
+ prince:(ac)=>torso()+HEAD+`<circle cx="60" cy="20" r="10" fill="${INK}"/><circle cx="51" cy="25" r="7" fill="${INK}"/><circle cx="69" cy="25" r="7" fill="${INK}"/><path d="M50 54 l5 4 5 -4 5 4 5 -4 v5 h-20 Z" fill="${ac}"/>`+teleGuitar(ac),
+ edge:(ac)=>torso()+HEAD+`<path d="M46 32 Q46 20 60 20 Q74 20 74 32 Z" fill="${INK}"/><circle cx="82" cy="112" r="2.6" fill="${ac}" opacity=".9"/><circle cx="90" cy="118" r="2" fill="${ac}" opacity=".6"/><circle cx="97" cy="123" r="1.5" fill="${ac}" opacity=".35"/>`+explGuitar(ac),
+ noel:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="26" rx="15" ry="8.5" fill="${INK}"/>`+semiGuitar(ac),
+ hetfield:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="23.5" rx="12.5" ry="6" fill="${INK}"/><rect x="56" y="46" width="8" height="7" rx="2" fill="${INK}"/>`+explGuitar(ac),
+ iommi:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="24" rx="12.5" ry="6" fill="${INK}"/><path d="M58 56 h4 v4 h4 v4 h-4 v6 h-4 v-6 h-4 v-4 h4 Z" fill="${ac}"/>`+sgGuitar(ac),
+ perry:(ac)=>torso()+`<rect x="44" y="26" width="8" height="34" rx="4" fill="${INK}"/><rect x="68" y="26" width="8" height="34" rx="4" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="24" rx="13.5" ry="6" fill="${INK}"/><rect x="47.5" y="29" width="25" height="4" rx="2" fill="${ac}"/>`+lpGuitar(ac),
+ frehley:(ac)=>torso()+`<rect x="43" y="27" width="7" height="22" rx="3.5" fill="${INK}"/><rect x="70" y="27" width="7" height="22" rx="3.5" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="24" rx="13.5" ry="6.5" fill="${INK}"/><rect x="36" y="52" width="12" height="6" rx="2" fill="${ac}"/><rect x="72" y="52" width="12" height="6" rx="2" fill="${ac}"/><path d="M40 86 q6 -6 2 -12 q-4 -5 1 -10" stroke="${ac}" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".8"/>`+lpGuitar(ac),
+ duane:(ac)=>torso()+`<rect x="44" y="26" width="7.5" height="36" rx="3.5" fill="${INK}"/><rect x="68.5" y="26" width="7.5" height="36" rx="3.5" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="23.5" rx="13" ry="6" fill="${INK}"/><circle cx="72" cy="82" r="3.2" fill="none" stroke="${ac}" stroke-width="2"/>`+lpGuitar(ac),
+ lespaul:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="23.5" rx="12" ry="5.5" fill="${INK}"/><path d="M60 55 L52 50.5 L52 59.5 Z M60 55 L68 50.5 L68 59.5 Z" fill="${ac}"/>`+lpGuitar(ac),
+ vai:(ac)=>torso()+`<rect x="43.5" y="26" width="8" height="42" rx="4" fill="${INK}"/><rect x="68.5" y="26" width="8" height="42" rx="4" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="23.5" rx="13.5" ry="6" fill="${INK}"/>`+baseGuitar(ac,`<circle cx="53" cy="90" r="2.6" fill="#f3ead8" stroke="${INK}" stroke-width="1.2"/>`),
+ satriani:(ac)=>torso()+HEAD+`<rect x="49.5" y="31.5" width="21" height="5" rx="2.5" fill="${ac}"/>`+baseGuitar(ac),
+ randy:(ac)=>torso()+`<ellipse cx="46" cy="34" rx="7" ry="11" fill="${INK}"/><ellipse cx="74" cy="34" rx="7" ry="11" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="22.5" rx="13" ry="7" fill="${INK}"/>`+vGuitar(ac,`<circle cx="36" cy="102" r="1.8" fill="#fff"/><circle cx="43" cy="98" r="1.8" fill="#fff"/><circle cx="40" cy="109" r="1.8" fill="#fff"/>`),
+ edsheeran:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="23" rx="13.5" ry="7.5" fill="${ac}" opacity=".85"/><ellipse cx="60" cy="25" rx="12" ry="5" fill="${INK}" opacity=".3"/><path d="M96 88 q4 3 3 8 M100 96 q3 3 1 7" stroke="${ac}" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".7"/>`+acGuitar(ac),
+ setzer:(ac)=>torso()+HEAD+`<path d="M47 30 Q45 15 62 14 Q75 15 73 27 Q71 20 60 20 Q51 20 47 30 Z" fill="${INK}"/><ellipse cx="63" cy="19" rx="9" ry="6" fill="${INK}"/>`+semiGuitar(ac),
+ greenwood:(ac)=>torso()+`<rect x="45" y="26" width="6.5" height="16" rx="3" fill="${INK}"/><rect x="68.5" y="26" width="6.5" height="16" rx="3" fill="${INK}"/>`+HEAD+`<path d="M46 30 Q46 19 60 19 Q74 19 74 30 L74 36 Q66 30 58 34 Q50 37 46 34 Z" fill="${INK}"/>`+teleGuitar(ac),
+ takanaka:(ac)=>torso()+`<circle cx="60" cy="24" r="14" fill="${INK}"/><circle cx="48" cy="31" r="8" fill="${INK}"/><circle cx="72" cy="31" r="8" fill="${INK}"/>`+HEAD+`<circle cx="99" cy="22" r="6" fill="${ac}"/><path d="M99 12 v-4 M99 36 v-4 M89 22 h-4 M113 22 h-4 M92 15 l-3 -3 M109 29 l-3 3 M92 29 l-3 3 M109 15 l-3 -3" stroke="${ac}" stroke-width="1.8" stroke-linecap="round" transform="scale(.9) translate(11 3)"/>`+lpGuitar(ac),
+ miyavi:(ac)=>torso()+HEAD+`<path d="M50 28 L54 12 L58 26 L62 8 L66 25 L70 13 L73 29 Q66 22 60 23 Q53 22 50 28 Z" fill="${INK}"/><path d="M60 92 q4 5 0 10 M66 90 q5 6 0 12" stroke="${ac}" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".8"/>`+teleGuitar(ac),
+ schenker:(ac)=>torso()+HEAD+`<ellipse cx="60" cy="25" rx="14.5" ry="8.5" fill="${INK}"/>`+vGuitar(ac,`<path d="M50 86 L26 104 L34 110 Z" fill="#f3ead8" stroke="${INK}" stroke-width="1.5"/>`),
+ lenny:(ac)=>torso()+`<rect x="46" y="14" width="5" height="14" rx="2.5" fill="${INK}" transform="rotate(-18 48 20)"/><rect x="54" y="10" width="5" height="15" rx="2.5" fill="${INK}"/><rect x="62" y="10" width="5" height="15" rx="2.5" fill="${INK}" transform="rotate(8 64 17)"/><rect x="70" y="14" width="5" height="14" rx="2.5" fill="${INK}" transform="rotate(18 72 20)"/>`+HEAD+`<rect x="49.5" y="31.5" width="21" height="5" rx="2.5" fill="${ac}"/>`+vGuitar(ac),
+ haruhata:(ac)=>torso()+`<rect x="45" y="27" width="6.5" height="14" rx="3" fill="${INK}"/><rect x="68.5" y="27" width="6.5" height="14" rx="3" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="24" rx="13" ry="6.5" fill="${INK}"/><path d="M84 128 q4 -5 8 0 q4 5 8 0 q4 -5 8 0" stroke="${ac}" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/>`+baseGuitar(ac),
+ char:(ac)=>torso()+`<rect x="44" y="27" width="7.5" height="33" rx="3.5" fill="${INK}"/><rect x="68.5" y="27" width="7.5" height="33" rx="3.5" fill="${INK}"/>`+HEAD+`<ellipse cx="60" cy="24" rx="13.5" ry="6" fill="${INK}"/>`+baseGuitar(ac)
+};
+const IMG_DIR="images/";
+function figHTML(g,big){
+  const st=`display:block;width:100%;${big?"":"aspect-ratio:108/140;object-fit:cover;"}`;
+  if(g.img){return `<img src="${g.img}" alt="${g.nm}のイラスト" style="${st}">`;}
+  // images/{id}.webp → images/{id}.png → 内蔵シルエット の順に自動フォールバック
+  const auto=`<img src="${IMG_DIR}${g.id}.webp" alt="${g.nm}のイラスト" style="${st}" data-step="0"
+    onerror="if(this.dataset.step==='0'){this.dataset.step='1';this.src=this.src.replace(/\.webp$/,'.png');}else{this.style.display='none';var s=this.nextElementSibling;if(s)s.style.display='';}">`;
+  return auto+figSVG(g,big).replace("<svg ",'<svg style="display:none" ');
+}
+function figSVG(g,big){
+  const vb = big ? "0 0 120 150" : "6 4 108 140";
+  return `<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${g.nm}のイラスト">
+  <circle cx="60" cy="76" r="52" fill="${g.ac}" opacity=".16"/>
+  <circle cx="60" cy="76" r="38" fill="${g.ac}" opacity=".12"/>
+  <ellipse cx="60" cy="137" rx="33" ry="4.5" fill="rgba(0,0,0,.14)"/>
+  ${SIL[g.id](g.ac)}
+  </svg>`;
+}
+
+/* ============ DNA (タグ表示のみ・チャートなし) ============ */
+
+/* ============ TECH INFO (奏法解説) ============ */
+const TECHS=["チョーキング","ビブラート","カッティング","タッピング","スライド","指弾き","アルペジオ","リフ","速弾き","空間系","ファンク","スラップ"];
+const TECH_INFO={
+ "チョーキング":{w:"弦を押し上げて音程を変える奏法。ギターが「歌う」ための最重要テクニックのひとつ。",p:"1音(全音)上げて狙った音程でピタッと止める練習。チューナーで確認しながらゆっくり。",l:"ソロで音が滑らかに持ち上がる瞬間に注目。上げ切った音が安定しているかが腕の差でございます。"},
+ "ビブラート":{w:"音を細かく揺らして表情を付ける奏法。奏者の個性が最も出る部分と言われます。",p:"チョーキングした音を保ったまま、ゆっくり大きく揺らす練習から。速さより揺れ幅の均一さ。",l:"ロングトーンの揺れ方に注目。B.B.キングの蝶のような揺れ、SRVの荒々しい揺れ——人によって全く違います。"},
+ "カッティング":{w:"左手のミュートと右手のストロークで、音を切りながらリズムを刻む奏法。",p:"1つのコードで結構でございます。右手を16分で振り続け、左手の握り離しで音を出し入れする練習。",l:"音が「鳴っていない瞬間」のリズムに注目。休符がグルーヴを作っております。"},
+ "タッピング":{w:"右手の指で指板を叩いて音を出す奏法。左右の手で広い音域を高速に行き来できます。",p:"右手人差し指で12フレットを叩き、引っかけて離す(プリング)練習から。最初はゆっくり大きな音で。",l:"通常のピッキングでは不可能な、跳躍する滑らかな連符に注目でございます。"},
+ "スライド":{w:"指やガラス・金属の筒(ボトルネック)で弦の上を滑らせ、音程を連続的に変える奏法。",p:"まずは1本の弦で、目的のフレット真上まで滑らせて止める練習。音程が命でございます。",l:"音と音の「あいだ」がつながって聴こえる、声のような節回しに注目。"},
+ "指弾き":{w:"ピックを使わず指先や爪で弾く奏法。複数の弦を同時に、別々の動きで操れます。",p:"親指でベース音、人差し指〜薬指で上の弦を受け持つ役割分担の練習から。",l:"ベースとメロディが同時に鳴る立体感、ピックとは違う柔らかい音色に注目。"},
+ "アルペジオ":{w:"コードを一音ずつ分けて弾く奏法。伴奏の基本にして、美しさの源でございます。",p:"押さえたコードを崩さず、6弦から1弦へ一定のリズムで順に弾く練習。音を伸ばしたまま重ねるのがコツ。",l:"音が重なって和音に育っていく響きに注目。ミスタッチがない演奏は水面のように滑らかでございます。"},
+ "リフ":{w:"曲の顔となる、繰り返される短いフレーズ。ロックの記憶はリフでできております。",p:"好きな曲のリフをテンポを落として完全コピー。原速の7割で完璧に弾けてから上げる。",l:"何度繰り返されても飽きない「引っかかり」がどこにあるか、探しながら聴くと面白うございます。"},
+ "速弾き":{w:"速いパッセージを正確に弾く技巧。速さそのものより、粒の揃い方が聴きどころ。",p:"メトロノームで「確実に弾ける遅さ」から1目盛ずつ。速く弾く練習より、遅く正確に弾く練習でございます。",l:"速い部分で音の粒が揃っているか、リズムが前のめりになっていないかに注目。"},
+ "空間系":{w:"ディレイ(やまびこ)やリバーブ(残響)で音の広がりを作る手法。「弾かない音」も設計に含まれます。",p:"付点8分ディレイに合わせて8分音符を弾くと、音数が倍に聴こえる魔法を体験できます。",l:"実際に弾いている音数の少なさに注目。エフェクトの反響が曲の壮大さを作っております。"},
+ "ファンク":{w:"リズムの跳ねと隙間を重視するスタイル。ギターがドラムのようにリズム楽器として機能します。",p:"16分の裏を感じながらのカッティング練習。メトロノームを2拍4拍で鳴らすと効果的でございます。",l:"ベース・ドラムとギターの絡み合いに注目。全員で1つのリズムマシンのように動いております。"},
+ "スラップ":{w:"親指で弦を叩き、指で弦を引っ張って音を出す奏法。ベース由来の技法をギターに応用したもの。",p:"親指の側面で低音弦を叩く「音を出さない練習」から。打楽器のような音が出れば第一歩。",l:"音程のある音と打撃音が混ざった、パーカッシブな質感に注目でございます。"}
+};
+function techKey(tag){
+  const map=[["チョーキング","チョーキング"],["ベンド","チョーキング"],["ビブラート","ビブラート"],["カッティング","カッティング"],["チャッキング","カッティング"],["タッピング","タッピング"],["スライド","スライド"],["指弾き","指弾き"],["フィンガー","指弾き"],["ピックレス","指弾き"],["ピックを使わない","指弾き"],["アルペジオ","アルペジオ"],["リフ","リフ"],["速弾き","速弾き"],["フルピッキング","速弾き"],["超絶","速弾き"],["ディレイ","空間系"],["空間","空間系"],["エコー","空間系"],["ファンク","ファンク"],["スラップ","スラップ"]];
+  for(const[k,v]of map){if(tag.includes(k))return v;}
+  return null;
+}
+
+/* ============ STATE / FAVORITES ============ */
+const store={
+  get(){try{return JSON.parse(localStorage.getItem("gz_favs")||"[]")}catch(e){return[]}},
+  set(v){try{localStorage.setItem("gz_favs",JSON.stringify(v))}catch(e){}}
+};
+let favs=store.get();
+const isFav=id=>favs.includes(id);
+function toggleFav(id){
+  favs=isFav(id)?favs.filter(x=>x!==id):favs.concat(id);
+  store.set(favs);
+}
+const state={era:null,genre:null,favOnly:false,tech:null,q:"",view:"list",current:null};
+const recentStore={
+  get(){try{return JSON.parse(localStorage.getItem("gz_recent")||"[]")}catch(e){return[]}},
+  push(id){try{let r=this.get().filter(x=>x!==id);r.unshift(id);localStorage.setItem("gz_recent",JSON.stringify(r.slice(0,5)))}catch(e){}}
+};
+
+/* ============ LIST VIEW ============ */
+const ERAS=["50s","60s","70s","80s","90s","00s","10s〜"];
+const GENRES=[...new Set(G.flatMap(g=>g.genre))];
+function chip(label,on,fn){
+  const b=document.createElement("button");
+  b.className="chip"+(on?" on":"");b.textContent=label;b.onclick=fn;return b;
+}
+function renderFilters(){
+  const fe=document.getElementById("f-era");fe.innerHTML="";
+  fe.className="f-row";
+  ERAS.forEach(e=>fe.appendChild(chip(e,state.era===e,()=>{state.era=state.era===e?null:e;renderList();})));
+  const fg=document.getElementById("f-genre");fg.innerHTML="";
+  fg.className="f-row";
+  GENRES.forEach(gn=>fg.appendChild(chip(gn,state.genre===gn,()=>{state.genre=state.genre===gn?null:gn;renderList();})));
+  fg.appendChild(chip("★ お気に入り",state.favOnly,()=>{state.favOnly=!state.favOnly;renderList();}));
+  const ft=document.getElementById("f-tech");ft.innerHTML="";
+  ft.className="f-row";
+  TECHS.forEach(t=>ft.appendChild(chip(t,state.tech===t,()=>{state.tech=state.tech===t?null:t;renderList();})));
+  const recent=recentStore.get().filter(id=>G.some(g=>g.id===id));
+  const row=document.getElementById("recent-row");
+  const fr=document.getElementById("f-recent");fr.innerHTML="";fr.className="f-row";
+  if(recent.length){
+    row.style.display="";
+    recent.forEach(id=>{
+      const g=G.find(x=>x.id===id);
+      const b=document.createElement("button");b.className="rc";b.textContent=g.nm;
+      b.onclick=()=>showDetail(id);fr.appendChild(b);
+    });
+  }else{row.style.display="none";}
+}
+function matchQ(g,q){
+  if(!q)return true;
+  const hay=[g.nm,g.en,g.hito,g.catch,g.years,g.country,
+    ...g.genre,...g.era,...g.dnaTags,...g.tech,
+    ...g.songs.map(x=>x.t),g.beg.t,g.gear.g,g.gear.a,g.gear.s].join(" ").toLowerCase();
+  return q.toLowerCase().split(/\s+/).every(w=>hay.includes(w));
+}
+function renderList(){
+  renderFilters();
+  const grid=document.getElementById("grid");grid.innerHTML="";
+  const list=G.filter(g=>
+    (!state.era||g.era.includes(state.era))&&
+    (!state.genre||g.genre.includes(state.genre))&&
+    (!state.tech||g.tech.includes(state.tech))&&
+    (!state.favOnly||isFav(g.id))&&
+    matchQ(g,state.q)
+  );
+  if(!list.length){grid.innerHTML=`<div class="empty">該当するギタリストがおりません。<br>条件を変えてお探しくださいませ。</div>`;return;}
+  list.forEach(g=>{
+    const c=document.createElement("button");
+    c.className="card";c.style.setProperty("--ac",g.ac);
+    c.innerHTML=`
+      <div class="fig">${figHTML(g,false)}</div>
+      ${isFav(g.id)?'<div class="fav-mark">★</div>':""}
+      <div class="meta">
+        <div class="nm">${g.nm}</div>
+        <div class="en">${g.en}</div>
+        <div class="hito">${g.hito}</div>
+        <div class="tags">
+          <span class="tg ac">${g.genre[0]}</span>
+          <span class="tg">${g.era.join("・")}</span>
+        </div>
+      </div>`;
+    c.onclick=()=>showDetail(g.id);
+    grid.appendChild(c);
+  });
+}
+
+/* ============ DETAIL VIEW ============ */
+function ytLink(g,title){
+  return "https://www.youtube.com/results?search_query="+encodeURIComponent(g.en.replace(/\s*\(.+\)$/,"")+" "+title);
+}
+function stars(lv){
+  let out="";
+  for(let i=1;i<=5;i++)out+=i<=lv?"★":'<span class="off">☆</span>';
+  return `<span class="stars">${out}</span>`;
+}
+function simScore(a,b){
+  const st=a.tech.filter(t=>b.tech.includes(t));
+  const sg=a.genre.filter(t=>b.genre.includes(t));
+  const se=a.era.some(e=>b.era.includes(e));
+  let score=55+st.length*9+sg.length*7+(se?4:0);
+  score=Math.max(62,Math.min(97,score));
+  let why=[];
+  if(st.length)why.push("奏法: "+st.slice(0,3).join("・"));
+  if(sg.length)why.push("ジャンル: "+sg.join("・"));
+  if(!why.length)why.push("系譜上のつながり");
+  return {score,why:why.join(" / ")};
+}
+function showDetail(id){
+  const g=G.find(x=>x.id===id);if(!g)return;
+  state.current=id;
+  recentStore.push(id);
+  const d=document.getElementById("detail");
+  d.innerHTML=`
+  <button class="back">← 図鑑へもどる</button>
+  <div class="sheet" style="--ac:${g.ac}">
+    <div class="hero">
+      ${figHTML(g,true)}
+      <div class="years">${g.years} ・ ${g.country}</div>
+      <button class="fav-btn ${isFav(g.id)?"on":""}" aria-label="お気に入り">★</button>
+    </div>
+    <div class="d-head">
+      <div class="d-nm">${g.nm}</div>
+      <div class="d-en">${g.en}</div>
+      <div class="d-catch">${g.catch}</div>
+    </div>
+    <div class="d-tags">
+      ${g.genre.map(x=>`<span class="tg ac" style="--ac:${g.ac};background:${g.ac};color:#fff">${x}</span>`).join("")}
+      ${g.era.map(x=>`<span class="tg">${x}</span>`).join("")}
+    </div>
+    <div class="d-body">
+      <div class="sec"><div class="sec-t">PROFILE</div><p class="d-prof">${g.prof}</p></div>
+      <div class="sec"><div class="sec-t">PLAYING DNA</div>
+        <div class="dna-tags">${g.dnaTags.map(t=>{const k=techKey(t);return `<span class="dna-tg${k?" tap":""}" data-tech="${k||""}" style="border-color:${g.ac};color:#3a3227">${t}</span>`;}).join("")}</div>
+        <p style="font-size:11px;color:#8a7a5f;margin-top:8px">点線付きのタグはタップすると奏法の解説が開きます。</p>
+      </div>
+      <div class="sec"><div class="sec-t">SIGNATURE SOUND</div>
+        <p class="gear"><b>ギター:</b> ${g.gear.g}<br><b>アンプ:</b> ${g.gear.a}<br><b>音作り:</b> ${g.gear.s}</p>
+      </div>
+      <div class="sec"><div class="sec-t">代表曲</div>
+        ${g.songs.map((s,i)=>`<div class="song"><span class="no">${i+1}</span><div><div class="st">${s.t}</div><div class="sn">${s.n}</div></div><a class="listen" href="${ytLink(g,s.t)}" target="_blank" rel="noopener">▶ 聴く</a></div>`).join("")}
+      </div>
+      <div class="sec"><div class="sec-t">入り口の一曲</div>
+        <div class="beg"><b>♪ ${g.beg.t}</b>
+          <div style="margin:4px 0 6px">難易度の目安: ${stars(g.lv)}</div>
+          ${g.beg.n}
+          <div style="margin-top:6px"><a class="listen" href="${ytLink(g,g.beg.t.replace(/（.+）|\(.+\)/,""))}" target="_blank" rel="noopener">▶ 聴く</a></div>
+        </div>
+      </div>
+      <div class="sec"><div class="sec-t">影響関係</div>
+        <p class="infl"><b>影響源:</b> ${g.inflFrom}<br><b>後世への影響:</b> ${g.inflTo}</p>
+        <p class="infl" style="font-size:11px;color:#8a7a5f;margin-top:6px">※ 本人の発言や広く知られる音楽的系譜をもとにした代表的な一例でございます。</p>
+      </div>
+      <div class="sec"><div class="sec-t">この人が好きなら</div>
+        ${g.sim.map(sid=>{const s2=G.find(x=>x.id===sid);if(!s2)return "";const r=simScore(g,s2);
+          return `<div class="sim-item"><button class="sim" data-id="${s2.id}"><b>${s2.nm}</b></button><span class="sim-pct" style="--ac:${g.ac}">${r.score}%</span><span class="sim-why">共通点 — ${r.why}</span></div>`;}).join("")}
+        <p style="font-size:11px;color:#8a7a5f;margin-top:4px">※ %は奏法・ジャンル等の共通点から算出した「近さの目安」で、優劣ではございません。</p>
+      </div>
+    </div>
+  </div>`;
+  d.querySelector(".back").onclick=()=>switchView("list");
+  d.querySelector(".fav-btn").onclick=ev=>{
+    toggleFav(g.id);ev.target.classList.toggle("on",isFav(g.id));
+  };
+  d.querySelectorAll(".sim").forEach(b=>b.onclick=()=>{showDetail(b.dataset.id);window.scrollTo(0,0);});
+  d.querySelectorAll(".dna-tg.tap").forEach(el=>el.onclick=()=>openTech(el.dataset.tech));
+  switchView("detail");
+  window.scrollTo(0,0);
+}
+
+/* ============ TREE VIEW ============ */
+function renderTree(){
+  const roots=[
+    {id:"_rj",nm:"ロバート・ジョンソン",x:80,y:110},
+    {id:"_tb",nm:"T-ボーン・ウォーカー",x:80,y:230},
+    {id:"_mw",nm:"マディ・ウォーターズ",x:80,y:350},
+    {id:"_jn",nm:"ジミー・ノーレン",x:80,y:470}
+  ];
+  const pos={
+    lespaul:{x:212,y:100}, chuck:{x:212,y:230}, bbking:{x:212,y:360},
+    clapton:{x:344,y:70}, hendrix:{x:344,y:160}, page:{x:344,y:250}, beck:{x:344,y:340}, richards:{x:344,y:430}, harrison:{x:344,y:520},
+    gilmour:{x:476,y:60}, char:{x:476,y:145}, nile:{x:476,y:230}, santana:{x:476,y:315}, may:{x:476,y:400}, blackmore:{x:476,y:485},
+    angus:{x:600,y:60}, knopfler:{x:600,y:145}, iommi:{x:600,y:230}, perry:{x:600,y:315}, duane:{x:600,y:400}, frehley:{x:600,y:485},
+    srv:{x:724,y:60}, evh:{x:724,y:145}, slash:{x:724,y:230}, yngwie:{x:724,y:315}, randy:{x:724,y:400}, prince:{x:724,y:485},
+    hotei:{x:848,y:60}, setzer:{x:848,y:145}, takanaka:{x:848,y:230}, edge:{x:848,y:315},
+    hetfield:{x:848,y:435}, schenker:{x:848,y:520}, haruhata:{x:848,y:375}, satriani:{x:972,y:60}, vai:{x:972,y:150},
+    cobain:{x:972,y:240}, morello:{x:972,y:330}, noel:{x:972,y:420}, greenwood:{x:972,y:510},
+    frusciante:{x:1096,y:60}, lenny:{x:1096,y:145}, matsumoto:{x:1096,y:230}, hide:{x:1096,y:315},
+    mayer:{x:1096,y:400}, jackwhite:{x:1096,y:485},
+    miyavi:{x:1220,y:130}, edsheeran:{x:1220,y:260}, henson:{x:1220,y:390}, wong:{x:1220,y:490}
+  };
+  const edges=[
+    ["_rj","clapton"],["_rj","jackwhite"],["_tb","bbking"],["_tb","chuck"],
+    ["_mw","hendrix"],["_mw","richards"],["_jn","nile"],
+    ["lespaul","beck"],
+    ["bbking","clapton"],["bbking","hendrix"],["bbking","srv"],["bbking","santana"],
+    ["chuck","richards"],["chuck","angus"],["chuck","perry"],
+    ["clapton","evh"],["clapton","char"],["clapton","edsheeran"],
+    ["hendrix","srv"],["hendrix","char"],["hendrix","frusciante"],["hendrix","hotei"],["hendrix","prince"],
+    ["page","evh"],["page","slash"],["page","morello"],
+    ["beck","matsumoto"],["blackmore","yngwie"],["blackmore","randy"],
+    ["santana","prince"],["santana","takanaka"],
+    ["iommi","hetfield"],["perry","slash"],["frehley","morello"],["randy","morello"],
+    ["satriani","vai"],
+    ["srv","mayer"],["nile","wong"],["hide","miyavi"],
+    ["prince","lenny"],["schenker","matsumoto"]
+  ];
+  const all={};roots.forEach(r=>all[r.id]=r);
+  Object.keys(pos).forEach(id=>{const g=G.find(x=>x.id===id);all[id]={id,nm:g.nm,x:pos[id].x,y:pos[id].y,ac:g.ac};});
+  const W=60,H=16;
+  let lines="";
+  edges.forEach(([a,b])=>{
+    const A=all[a],B=all[b];
+    const x1=A.x+W,y1=A.y,x2=B.x-W-4,y2=B.y,mx=(x1+x2)/2;
+    lines+=`<path d="M${x1} ${y1} C${mx} ${y1} ${mx} ${y2} ${x2} ${y2}" fill="none" stroke="#c3b28c" stroke-width="1.3" opacity=".7" marker-end="url(#arw)"/>`;
+  });
+  let nodes="";
+  roots.forEach(r=>{
+    nodes+=`<g><rect x="${r.x-W}" y="${r.y-H}" width="${W*2}" height="${H*2}" rx="9" fill="none" stroke="#a89877" stroke-dasharray="4 3" stroke-width="1.3"/>
+    <text x="${r.x}" y="${r.y+4}" text-anchor="middle" font-size="10.5" fill="#6b5d4a">${r.nm}</text></g>`;
+  });
+  Object.keys(pos).forEach(id=>{
+    const n=all[id];
+    const label=n.nm.replace(/(.+?)(（.+）)?$/,"$1");
+    nodes+=`<g class="tnode" data-id="${id}" style="cursor:pointer">
+    <rect x="${n.x-W}" y="${n.y-H}" width="${W*2}" height="${H*2}" rx="9" fill="#fff" stroke="${n.ac}" stroke-width="2.2"/>
+    <text x="${n.x}" y="${n.y+4.5}" text-anchor="middle" font-size="11" font-weight="bold" fill="#28211a">${label.length>10?label.slice(0,10)+"…":label}</text></g>`;
+  });
+  const cols=[["ROOTS",80],["50s",212],["60s",344],["70s",476],["70s",600],["80s",724],["80s",848],["90s",972],["90s/00s",1096],["00s/10s〜",1220]];
+  const eras=cols.map(c=>`<text x="${c[1]}" y="28" text-anchor="middle" font-size="10" letter-spacing="3" fill="#a89877">${c[0]}</text>`).join("");
+  document.getElementById("tree").innerHTML=
+  `<svg viewBox="0 0 1300 570" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="arw" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#c3b28c"/></marker></defs>
+    ${eras}${lines}${nodes}
+  </svg>`;
+  document.querySelectorAll(".tnode").forEach(n=>n.addEventListener("click",()=>showDetail(n.dataset.id)));
+}
+
+/* ============ HELP VIEW ============ */
+function renderHelp(){
+  document.getElementById("help").innerHTML=`
+  <div class="h-card"><h2>この図鑑について</h2>
+    <p>有名ギタリスト50名を「知って、聴いて、真似てみる」ための図鑑でございます。気になるカードをタップすると、その人のプレイスタイルの秘密——<b>Playing DNA</b>——をご覧いただけます。</p>
+  </div>
+  <div class="h-card"><h2>使い方</h2>
+    <ul>
+      <li><b>検索</b> — 名前・曲名・奏法・ギターの機種名などを横断して探せます(例:「カッティング」「レスポール」)。</li>
+      <li><b>図鑑</b> — カードをタップで詳細へ。年代・ジャンルに加えて<b>奏法</b>でも絞り込みができます。</li>
+      <li><b>今日の一人 / ランダム</b> — 目的なく開いた日も、新しいギタリストに出会えます。「今日の一人」は日替わりでございます。</li>
+      <li><b>最近見た</b> — 直近に開いた5名がボタンで並び、すぐ戻れます(この端末にのみ保存されます)。</li>
+      <li><b>▶ 聴く</b> — 各曲のボタンからYouTubeの検索結果が新しいタブで開きます。</li>
+      <li><b>★お気に入り</b> — 詳細画面右上の★を押すと登録され、一覧で絞り込めます(この端末にのみ保存されます)。</li>
+      <li><b>系譜</b> — 誰が誰に影響を与えたかをたどる地図です。枠のある人物はタップで詳細へ移動できます。線は代表的な影響関係の一例で、すべてを網羅するものではございません。</li>
+      <li><b>この人が好きなら</b> — 詳細画面の下部から、近いスタイルのギタリストへ旅を続けられます。</li>
+      <li><b>入り口の一曲</b> — その人の持ち味に比較的取り組みやすい形で触れられる曲を選んでおります。難易度の感じ方は人それぞれでございますので、実際の選曲はレッスンでお気軽にご相談を。</li>
+    </ul>
+  </div>
+  <div class="h-card"><h2>Playing DNA の見方</h2>
+    <p>詳細画面の<b>PLAYING DNA</b>には、その人の演奏の核となる特徴を「タグ」で並べております。点線の付いたタグはタップすると、<b>どんな奏法か/何を練習すればよいか/聴くときの注目点</b>の解説が開きます。曲を聴く前にタグを確認すると、耳の解像度がぐっと上がります。</p>
+    <p style="margin-top:8px"><b>入り口の一曲</b>には難易度の目安(★1〜5)を添えております。★1=単音リフやコード数個から / ★3=要練習の定番 / ★5=原曲再現は上級者向け、という目安で、当教室の見立てでございます。</p>
+    <p style="margin-top:8px"><b>この人が好きなら</b>の%は、奏法・ジャンルなどの共通点から算出した「近さの目安」でございます。優劣の点数ではございません。</p>
+  </div>
+  <div class="h-card"><h2>イラストについて</h2>
+    <p>本図鑑の人物画像は、肖像権・著作権に配慮し、実在の写真ではなく<b>オリジナルのイラスト</b>で統一しております。特徴的な髪型・帽子・ギターのかたちで「らしさ」をお楽しみくださいませ。</p>
+    <p style="margin-top:8px">手描きイラストは順次差し替えてまいります(画像が未登録の人物は自動生成のシルエットで表示されます)。</p>
+    <p style="margin-top:8px">また、機材は時期により変わるため<b>「代表的な機材」</b>として記載しております。楽曲欄には本人以外の作曲によるものも「代表的な演奏」として含み、その場合は作者を明記するよう努めております。</p>
+  </div>`;
+}
+
+/* ============ VIEW SWITCH / INIT ============ */
+function switchView(v){
+  state.view=v;
+  document.querySelectorAll(".view").forEach(el=>el.classList.remove("on"));
+  const target = v==="detail" ? "v-detail" : "v-"+v;
+  document.getElementById(target).classList.add("on");
+  document.querySelectorAll(".tab").forEach(t=>{
+    t.classList.toggle("on", t.dataset.v===v || (v==="detail"&&t.dataset.v==="list"));
+  });
+  if(v==="list")renderList();
+}
+function openTech(key){
+  const info=TECH_INFO[key];if(!info)return;
+  document.getElementById("tm-title").textContent=key;
+  document.getElementById("tm-what").textContent=info.w;
+  document.getElementById("tm-practice").textContent=info.p;
+  document.getElementById("tm-listen").textContent=info.l;
+  document.getElementById("tech-modal").classList.add("on");
+}
+document.getElementById("tm-close").onclick=()=>document.getElementById("tech-modal").classList.remove("on");
+document.getElementById("tech-modal").addEventListener("click",e=>{if(e.target.id==="tech-modal")e.target.classList.remove("on");});
+
+document.getElementById("search").addEventListener("input",e=>{state.q=e.target.value;renderList();});
+document.getElementById("btn-random").onclick=()=>{
+  const g=G[Math.floor(Math.random()*G.length)];showDetail(g.id);
+};
+document.getElementById("btn-today").onclick=()=>{
+  const d=new Date();
+  const seed=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
+  const g=G[seed%G.length];showDetail(g.id);
+};
+
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>switchView(t.dataset.v));
+renderList();renderTree();renderHelp();
+</script>
+</body>
+</html>
