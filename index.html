@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>ギタリスト図鑑 | SingingBirds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#17140f;
@@ -296,6 +297,106 @@ nav{
 footer{
   text-align:center;margin-top:36px;font-size:10px;color:#6e6250;letter-spacing:.2em;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   モチーフ層「美術館の展示室」（2026-10）
+   仕組みと配置には触れず、色・形・飾りだけをここで上書きする。
+   ・地は展示室の暗い壁。上からのスポットライトと、縦目の壁紙
+   ・肖像は金の額縁に収め、名前は額の下の真鍮の名札に
+   ・札や見出しは展示の案内板のように、角を立てて細い真鍮の線で
+   ══════════════════════════════════════════════════════════════ */
+:root{
+  --wall:#1d1712; --wall2:#261e17;
+  --brass:#e2c27f; --brassD:#a9884b; --brassL:#f3dda6;
+  --frame:linear-gradient(135deg,#c9a35a 0%,#7a5a27 28%,#e7c983 52%,#6e5226 76%,#b8914d 100%);
+  --plaque:linear-gradient(180deg,#e6cc8c 0%,#c4a25e 55%,#a98a4b 100%);
+  --radius:2px;
+}
+body{
+  font-family:"Zen Kaku Gothic New",-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;
+  background:
+    radial-gradient(70% 38% at 50% 0%, rgba(255,226,160,.16), transparent 70%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.016) 0 2px, transparent 2px 7px),
+    linear-gradient(180deg,var(--wall2),var(--wall) 40%);
+}
+html{ background:var(--wall); }
+h1,.serif,.card .nm,.d-nm,.d-catch,.tl-label,.tcard .tnm,.h-card h2,.tm-card h3,.aki-card h3,.card .hito,.song .no{
+  font-family:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif; }
+
+/* 題 */
+header{ padding:30px 16px 14px; }
+.hd-eyebrow{ color:var(--brassD); letter-spacing:.42em; }
+h1{ color:var(--brass); font-weight:700; letter-spacing:.18em; text-shadow:0 2px 10px rgba(0,0,0,.6),0 0 22px rgba(226,194,127,.18); }
+header::after{ content:''; display:block; width:170px; height:7px; margin:12px auto 0;
+  background:linear-gradient(var(--brassD),var(--brassD)) center/100% 1px no-repeat,
+             radial-gradient(circle,var(--brass) 0 2.5px,transparent 3px) center/7px 7px no-repeat; }
+.hd-sub{ color:#a8977c; }
+
+/* 上の切り替え：案内板の文字。選ばれた所に真鍮の下線 */
+nav{ gap:0; padding:10px 16px 6px; background:linear-gradient(to bottom, rgba(29,23,18,.97) 75%, rgba(29,23,18,0)); }
+.tab{ border:0; border-radius:0; padding:8px 16px; color:#a8977c; letter-spacing:.2em; font-family:"Zen Old Mincho",serif; position:relative; }
+.tab+.tab::before{ content:''; position:absolute; left:0; top:30%; height:40%; width:1px; background:#5a4a33; }
+.tab.on{ background:transparent; color:var(--brass); font-weight:700; box-shadow:inset 0 -1px 0 var(--brass); }
+
+/* 絞り込み：角を立てた札 */
+.f-label{ color:var(--brassD); letter-spacing:.3em; display:flex; align-items:center; gap:8px; }
+.f-label::after{ content:''; flex:1; height:1px; background:#4a3d2b; }
+.chip,.rc{ border-radius:1px; border:1px solid #5a4a33; background:rgba(0,0,0,.18); color:#d8caac; }
+.chip.on{ background:var(--plaque); color:#2a1d0e; border-color:var(--brassD); box-shadow:0 1px 2px rgba(0,0,0,.5); }
+#search{ border-radius:1px; background:rgba(0,0,0,.25); border:0; border-bottom:1px solid var(--brassD); padding-left:4px; }
+#search:focus{ border-bottom-color:var(--brass); }
+.disc{ border-radius:1px; border-color:var(--brassD); color:var(--brass); letter-spacing:.08em; }
+.disc:active{ background:var(--plaque); color:#2a1d0e; }
+
+/* 一覧：金の額縁と真鍮の名札 */
+.grid{ gap:22px 16px; margin-top:20px; }
+.card{ background:transparent; border-radius:0; overflow:visible; box-shadow:none; text-align:center; padding-top:4px; }
+.card::before{ content:''; position:absolute; left:-6%; right:-6%; top:-14px; height:62%; pointer-events:none;
+  background:radial-gradient(50% 60% at 50% 0%, rgba(255,232,180,.18), transparent 75%); }
+.card .fig{ position:relative; border:7px solid transparent; border-image:var(--frame) 1;
+  box-shadow:0 8px 18px rgba(0,0,0,.65), inset 0 0 0 2px #2a1d0e; background:#2a1d0e; }
+.card .meta{ position:relative; border-top:0; width:90%; margin:10px auto 0; padding:6px 6px 7px;
+  background:var(--plaque); color:#2a1d0e; box-shadow:0 2px 4px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,245,215,.6); }
+.card .meta::before,.card .meta::after{ content:''; position:absolute; top:50%; width:4px; height:4px; margin-top:-2px; border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#fff3cf,#7a5a27); }
+.card .meta::before{ left:4px; } .card .meta::after{ right:4px; }
+.card .nm{ font-size:14px; color:#2a1d0e; }
+.card .en{ color:#5a4325; letter-spacing:.12em; }
+.card .hito{ color:#5a2a1a; }
+.card .tags{ justify-content:center; }
+.tg{ border-radius:1px; background:rgba(42,29,14,.12); color:#3d2c17; }
+.tg.ac{ background:#2a1d0e; color:var(--brassL); }
+.fav-mark{ top:10px; right:12px; color:var(--brass); }
+
+/* 詳細：図録の一頁 */
+.back{ color:var(--brass); }
+.sheet{ border-radius:0; background:var(--paper); box-shadow:0 10px 30px rgba(0,0,0,.6); outline:1px solid var(--brassD); outline-offset:-8px; }
+.hero{ padding:18px 18px 4px; background:var(--paper2); }
+.hero svg,.hero img{ border:10px solid transparent; border-image:var(--frame) 1; box-shadow:0 10px 22px rgba(0,0,0,.45), inset 0 0 0 2px #2a1d0e; }
+.hero .years{ top:24px; left:30px; color:var(--brassL); text-shadow:0 1px 2px #000; z-index:1; }
+.d-head{ border-top:0; text-align:center; padding-top:12px; }
+.d-head::before{ content:''; display:block; width:120px; height:1px; margin:0 auto 10px; background:var(--brassD); }
+.d-tags{ justify-content:center; }
+.sec-t{ letter-spacing:.32em; }
+.dna-tg,.sim,.listen,.tm-close{ border-radius:1px; }
+.beg{ border-radius:0; }
+.song .no{ color:var(--brassD); }
+
+/* 年表：展示室をたどる廊下 */
+.tl-era::before{ background:linear-gradient(var(--brassD),#4a3d2b); width:1px; left:8px; }
+.tl-era::after{ border-radius:0; transform:rotate(45deg); width:10px; height:10px; left:3px; top:6px; background:var(--plaque); box-shadow:0 0 0 3px rgba(226,194,127,.15); }
+.tl-label{ color:var(--brass); }
+.tcard{ border-radius:0; border-left:0; background:var(--paper); padding:6px 10px 6px 6px; }
+.tcard .tfig{ border-radius:0; border:3px solid transparent; border-image:var(--frame) 1; }
+
+/* 名ソロ・使い方・小窓：展示の解説板 */
+.h-card,.tm-card,.aki-card{ border-radius:0; outline:1px solid var(--brassD); outline-offset:-6px; }
+.h-card h2,.tm-card h3,.aki-card h3{ border-bottom:1px solid var(--brassD); }
+.solo-fig,.aki-result .rfig,.aki-rec-fig{ border-radius:0; border:3px solid transparent; border-image:var(--frame) 1; }
+.solo-g{ color:#8a5a1c; }
+.aki-btns button{ border-radius:1px; }
+.aki-btns button.main{ background:var(--plaque); border-color:var(--brassD); color:#2a1d0e; }
+footer{ color:#7d6e55; }
 </style>
 </head>
 <body>
